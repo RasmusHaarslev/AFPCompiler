@@ -76,21 +76,19 @@ let sameStack = go ex1Tree;;
 
 
 // Test of programs covered by the first task (Section 3.7):
-List.iter exec ["test_programs/Ex1.gc"; "test_programs/Ex2.gc";"test_programs/Ex3.gc"; "test_programs/Ex4.gc"; "test_programs/Ex5.gc"; "test_programs/Ex6.gc"; "test_programs/Skip.gc"];;
-(*
+//List.iter exec ["test_programs/Ex1.gc"; "test_programs/Ex2.gc";"test_programs/Ex3.gc"; "test_programs/Ex4.gc"; "test_programs/Ex5.gc"; "test_programs/Ex6.gc"; "test_programs/Skip.gc"];;
+
 // Test of programs covered by the second task (Section 4.3):
-List.iter exec ["Ex7.gc"; "fact.gc"; "factRec.gc"; "factCBV.gc"];;
+List.iter exec ["test_programs/Ex7.gc"; "test_programs/fact.gc"; "test_programs/factRec.gc"; "test_programs/factCBV.gc"];;
 
 // Test of programs covered by the fourth task (Section 5.4):
-List.iter exec ["A0.gc"; "A1.gc"; "A2.gc"; "A3.gc"];;
+//List.iter exec ["test_programs/A0.gc"; "test_programs/A1.gc"; "test_programs/A2.gc"; "test_programs/A3.gc"];;
 
 // Test of programs covered by the fifth task (Section 6.1):
-List.iter exec ["A4.gc"; "Swap.gc"; "QuickSortV1.gc"];;
+//List.iter exec ["test_programs/A4.gc"; "test_programs/Swap.gc"; "test_programs/QuickSortV1.gc"];;
 
 // Test of programs covered by the fifth task (Section 7.4):
-List.iter exec ["par1.gc"; "factImpPTyp.gc"; "QuickSortV2.gc"; "par2.gc"];;
+//List.iter exec ["test_programs/par1.gc"; "test_programs/factImpPTyp.gc"; "test_programs/QuickSortV2.gc"; "test_programs/par2.gc"];;
 
 // Test of programs covered by the fifth task using optimized compilation (Section 8.2):
-List.iter execOpt ["par1.gc"; "factImpPTyp.gc"; "QuickSortV2.gc"; "par2.gc"];;
-
-*)
+//List.iter execOpt ["test_programs/par1.gc"; "test_programs/factImpPTyp.gc"; "test_programs/QuickSortV2.gc"; "test_programs/par2.gc"];;

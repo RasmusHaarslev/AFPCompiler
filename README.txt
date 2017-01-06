@@ -3,4 +3,6 @@
 fslex "$(ProjectDir)Lexer.fsl"
 fsyacc --module Parser "$(ProjectDir)Parser.fsy"
 
+/usr/lib/cli/fsharp/fslex.exe Lexer.fsl -o Lexer.fs
+
 Note: You must revise 4 pathes occurring in Script.fsx

@@ -32,16 +32,19 @@ module CodeGeneration =
 
        | Apply("-", [e]) -> CE vEnv fEnv e @  [CSTI 0; SWAP; SUB]
 
+       | Apply("!", [e]) -> CE vEnv fEnv e @ [NOT]
+
        | Apply("&&",[b1;b2]) -> let labend   = newLabel()
                                 let labfalse = newLabel()
                                 CE vEnv fEnv b1 @ [IFZERO labfalse] @ CE vEnv fEnv b2
                                 @ [GOTO labend; Label labfalse; CSTI 0; Label labend]
 
-       | Apply(o,[e1;e2]) when List.exists (fun x -> o=x) ["+"; "*"; "="]
+       | Apply(o,[e1;e2]) when List.exists (fun x -> o=x) ["+"; "*"; "="; "-"]
                              -> let ins = match o with
                                           | "+"  -> [ADD]
                                           | "*"  -> [MUL]
                                           | "="  -> [EQ]
+                                          | "-"  -> [SUB]
                                           | _    -> failwith "CE: this case is not possible"
                                 CE vEnv fEnv e1 @ CE vEnv fEnv e2 @ ins
 
@@ -81,7 +84,7 @@ module CodeGeneration =
             let labend = newLabel()
             in List.collect (CSgcAlt vEnv fEnv labend) gc @ [STOP; Label labend]
 
-       | Do (GC gc)       -> 
+       | Do (GC gc)       ->
             let labstart = newLabel()
             in [Label labstart] @ List.collect (CSgcAlt vEnv fEnv labstart) gc
 

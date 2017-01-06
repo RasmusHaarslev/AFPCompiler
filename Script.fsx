@@ -30,7 +30,7 @@ open VirtualMachine
 //System.IO.Directory.SetCurrentDirectory @"C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands";;
 
 // The Ex0.gc example:
-
+(*
 let ex0Tree = parseFromFile "test_programs/Ex0.gc";;
 
 let _ = tcP ex0Tree;;
@@ -58,15 +58,15 @@ let stack = goTrace ex1Tree;;
 
 // -- is executed as follows (no trace):
 let sameStack = go ex1Tree;;
-
+*)
 // "All in one" parse from file, type check, compile and run
 
-let _ = exec "test_programs/Ex1.gc";;
+//let _ = exec "test_programs/Ex1.gc";;
 
-let _ = exec "test_programs/Ex2.gc";;
+//let _ = exec "test_programs/Ex2.gc";;
 
 // Test of programs covered by the fifth task using optimized compilation (Section 8.2):
-List.iter execOpt ["test_programs/Ex1.gc"; "test_programs/Ex2.gc"];;
+//List.iter execOpt ["test_programs/Ex1.gc"; "test_programs/Ex2.gc"];;
 
 // All programs relating to the basic version can be parsed:
 //let pts = List.map parseFromFile ["test_programs/Ex1.gc"; "test_programs/Ex2.gc";"test_programs/Ex3.gc"; "test_programs/Ex4.gc"; "test_programs/Ex5.gc"; "test_programs/Ex6.gc"; "test_programs/Skip.gc"];;
@@ -76,7 +76,7 @@ List.iter execOpt ["test_programs/Ex1.gc"; "test_programs/Ex2.gc"];;
 
 
 // Test of programs covered by the first task (Section 3.7):
-List.iter exec ["test_programs/Ex1.gc"; "test_programs/Ex2.gc";"test_programs/Ex3.gc"; "test_programs/Ex4.gc"; "test_programs/Ex5.gc"; "test_programs/Ex6.gc"; "Skip.gc"];;
+List.iter exec ["test_programs/Ex1.gc"; "test_programs/Ex2.gc";"test_programs/Ex3.gc"; "test_programs/Ex4.gc"; "test_programs/Ex5.gc"; "test_programs/Ex6.gc"; "test_programs/Skip.gc"];;
 (*
 // Test of programs covered by the second task (Section 4.3):
 List.iter exec ["Ex7.gc"; "fact.gc"; "factRec.gc"; "factCBV.gc"];;

@@ -1,6 +1,6 @@
 Output file describing compiled parser placed in C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fs and C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsi
 ------------------------
-states = 
+states =
 state 0:
   items:
     _startMain ->  . Main
@@ -56,7 +56,7 @@ state 0:
 
 state 1:
   items:
-    _startMain -> Main . 
+    _startMain -> Main .
 
   actions:
     action 'HIGH' (noprec):   accept
@@ -159,7 +159,7 @@ state 2:
 
 state 3:
   items:
-    _startProg -> Prog . 
+    _startProg -> Prog .
 
   actions:
     action 'HIGH' (noprec):   accept
@@ -261,7 +261,7 @@ state 4:
 
 state 5:
   items:
-    Main -> Prog 'EOF' . 
+    Main -> Prog 'EOF' .
 
   actions:
     action 'HIGH' (noprec):   reduce Main --> Prog 'EOF'
@@ -316,48 +316,48 @@ state 6:
     Prog -> 'BEGIN' . StmL 'END'
 
   actions:
-    action 'HIGH' (noprec):   reduce StmL --> 
-    action 'EOF' (noprec):   reduce StmL --> 
+    action 'HIGH' (noprec):   reduce StmL -->
+    action 'EOF' (noprec):   reduce StmL -->
     action 'PRINT' (noprec):   shift 24
-    action 'ASG' (noprec):   reduce StmL --> 
+    action 'ASG' (noprec):   reduce StmL -->
     action 'SKIP' (noprec):   shift 29
     action 'ABORT' (noprec):   shift 30
-    action 'NEG' (noprec):   reduce StmL --> 
-    action 'PLUS' (noprec):   reduce StmL --> 
-    action 'MINUS' (noprec):   reduce StmL --> 
-    action 'TIMES' (noprec):   reduce StmL --> 
-    action 'AND' (noprec):   reduce StmL --> 
-    action 'EQ' (noprec):   reduce StmL --> 
-    action 'LE' (noprec):   reduce StmL --> 
-    action 'LT' (noprec):   reduce StmL --> 
-    action 'GT' (noprec):   reduce StmL --> 
-    action 'NEQ' (noprec):   reduce StmL --> 
-    action 'COMMA' (noprec):   reduce StmL --> 
-    action 'COLON' (noprec):   reduce StmL --> 
-    action 'SEMI' (noprec):   reduce StmL --> 
-    action 'BAR' (noprec):   reduce StmL --> 
-    action 'TO' (noprec):   reduce StmL --> 
+    action 'NEG' (noprec):   reduce StmL -->
+    action 'PLUS' (noprec):   reduce StmL -->
+    action 'MINUS' (noprec):   reduce StmL -->
+    action 'TIMES' (noprec):   reduce StmL -->
+    action 'AND' (noprec):   reduce StmL -->
+    action 'EQ' (noprec):   reduce StmL -->
+    action 'LE' (noprec):   reduce StmL -->
+    action 'LT' (noprec):   reduce StmL -->
+    action 'GT' (noprec):   reduce StmL -->
+    action 'NEQ' (noprec):   reduce StmL -->
+    action 'COMMA' (noprec):   reduce StmL -->
+    action 'COLON' (noprec):   reduce StmL -->
+    action 'SEMI' (noprec):   reduce StmL -->
+    action 'BAR' (noprec):   reduce StmL -->
+    action 'TO' (noprec):   reduce StmL -->
     action 'IF' (noprec):   shift 34
-    action 'FI' (noprec):   reduce StmL --> 
+    action 'FI' (noprec):   reduce StmL -->
     action 'DO' (noprec):   shift 37
-    action 'OD' (noprec):   reduce StmL --> 
-    action 'BEGIN' (noprec):   reduce StmL --> 
-    action 'END' (noprec):   reduce StmL --> 
-    action 'LP' (noprec):   reduce StmL --> 
+    action 'OD' (noprec):   reduce StmL -->
+    action 'BEGIN' (noprec):   reduce StmL -->
+    action 'END' (noprec):   reduce StmL -->
+    action 'LP' (noprec):   reduce StmL -->
     action 'LCP' (noprec):   shift 31
-    action 'LSP' (noprec):   reduce StmL --> 
-    action 'RP' (noprec):   reduce StmL --> 
-    action 'RCP' (noprec):   reduce StmL --> 
-    action 'RSP' (noprec):   reduce StmL --> 
-    action 'ITYP' (noprec):   reduce StmL --> 
-    action 'BTYP' (noprec):   reduce StmL --> 
+    action 'LSP' (noprec):   reduce StmL -->
+    action 'RP' (noprec):   reduce StmL -->
+    action 'RCP' (noprec):   reduce StmL -->
+    action 'RSP' (noprec):   reduce StmL -->
+    action 'ITYP' (noprec):   reduce StmL -->
+    action 'BTYP' (noprec):   reduce StmL -->
     action 'NAME' (noprec):   shift 17
-    action 'STRING' (noprec):   reduce StmL --> 
-    action 'BOOL' (noprec):   reduce StmL --> 
-    action 'INT' (noprec):   reduce StmL --> 
-    action 'error' (noprec):   reduce StmL --> 
-    action '#' (noprec):   reduce StmL --> 
-    action '$$' (noprec):   reduce StmL --> 
+    action 'STRING' (noprec):   reduce StmL -->
+    action 'BOOL' (noprec):   reduce StmL -->
+    action 'INT' (noprec):   reduce StmL -->
+    action 'error' (noprec):   reduce StmL -->
+    action '#' (noprec):   reduce StmL -->
+    action '$$' (noprec):   reduce StmL -->
 
   immediate action: <none>
  gotos:
@@ -424,48 +424,48 @@ state 8:
     Prog -> 'BEGIN' DecList 'SEMI' . StmL 'END'
 
   actions:
-    action 'HIGH' (noprec):   reduce StmL --> 
-    action 'EOF' (noprec):   reduce StmL --> 
+    action 'HIGH' (noprec):   reduce StmL -->
+    action 'EOF' (noprec):   reduce StmL -->
     action 'PRINT' (noprec):   shift 24
-    action 'ASG' (noprec):   reduce StmL --> 
+    action 'ASG' (noprec):   reduce StmL -->
     action 'SKIP' (noprec):   shift 29
     action 'ABORT' (noprec):   shift 30
-    action 'NEG' (noprec):   reduce StmL --> 
-    action 'PLUS' (noprec):   reduce StmL --> 
-    action 'MINUS' (noprec):   reduce StmL --> 
-    action 'TIMES' (noprec):   reduce StmL --> 
-    action 'AND' (noprec):   reduce StmL --> 
-    action 'EQ' (noprec):   reduce StmL --> 
-    action 'LE' (noprec):   reduce StmL --> 
-    action 'LT' (noprec):   reduce StmL --> 
-    action 'GT' (noprec):   reduce StmL --> 
-    action 'NEQ' (noprec):   reduce StmL --> 
-    action 'COMMA' (noprec):   reduce StmL --> 
-    action 'COLON' (noprec):   reduce StmL --> 
-    action 'SEMI' (noprec):   reduce StmL --> 
-    action 'BAR' (noprec):   reduce StmL --> 
-    action 'TO' (noprec):   reduce StmL --> 
+    action 'NEG' (noprec):   reduce StmL -->
+    action 'PLUS' (noprec):   reduce StmL -->
+    action 'MINUS' (noprec):   reduce StmL -->
+    action 'TIMES' (noprec):   reduce StmL -->
+    action 'AND' (noprec):   reduce StmL -->
+    action 'EQ' (noprec):   reduce StmL -->
+    action 'LE' (noprec):   reduce StmL -->
+    action 'LT' (noprec):   reduce StmL -->
+    action 'GT' (noprec):   reduce StmL -->
+    action 'NEQ' (noprec):   reduce StmL -->
+    action 'COMMA' (noprec):   reduce StmL -->
+    action 'COLON' (noprec):   reduce StmL -->
+    action 'SEMI' (noprec):   reduce StmL -->
+    action 'BAR' (noprec):   reduce StmL -->
+    action 'TO' (noprec):   reduce StmL -->
     action 'IF' (noprec):   shift 34
-    action 'FI' (noprec):   reduce StmL --> 
+    action 'FI' (noprec):   reduce StmL -->
     action 'DO' (noprec):   shift 37
-    action 'OD' (noprec):   reduce StmL --> 
-    action 'BEGIN' (noprec):   reduce StmL --> 
-    action 'END' (noprec):   reduce StmL --> 
-    action 'LP' (noprec):   reduce StmL --> 
+    action 'OD' (noprec):   reduce StmL -->
+    action 'BEGIN' (noprec):   reduce StmL -->
+    action 'END' (noprec):   reduce StmL -->
+    action 'LP' (noprec):   reduce StmL -->
     action 'LCP' (noprec):   shift 31
-    action 'LSP' (noprec):   reduce StmL --> 
-    action 'RP' (noprec):   reduce StmL --> 
-    action 'RCP' (noprec):   reduce StmL --> 
-    action 'RSP' (noprec):   reduce StmL --> 
-    action 'ITYP' (noprec):   reduce StmL --> 
-    action 'BTYP' (noprec):   reduce StmL --> 
+    action 'LSP' (noprec):   reduce StmL -->
+    action 'RP' (noprec):   reduce StmL -->
+    action 'RCP' (noprec):   reduce StmL -->
+    action 'RSP' (noprec):   reduce StmL -->
+    action 'ITYP' (noprec):   reduce StmL -->
+    action 'BTYP' (noprec):   reduce StmL -->
     action 'NAME' (noprec):   shift 23
-    action 'STRING' (noprec):   reduce StmL --> 
-    action 'BOOL' (noprec):   reduce StmL --> 
-    action 'INT' (noprec):   reduce StmL --> 
-    action 'error' (noprec):   reduce StmL --> 
-    action '#' (noprec):   reduce StmL --> 
-    action '$$' (noprec):   reduce StmL --> 
+    action 'STRING' (noprec):   reduce StmL -->
+    action 'BOOL' (noprec):   reduce StmL -->
+    action 'INT' (noprec):   reduce StmL -->
+    action 'error' (noprec):   reduce StmL -->
+    action '#' (noprec):   reduce StmL -->
+    action '$$' (noprec):   reduce StmL -->
 
   immediate action: <none>
  gotos:
@@ -527,7 +527,7 @@ state 9:
 
 state 10:
   items:
-    Prog -> 'BEGIN' DecList 'SEMI' StmL 'END' . 
+    Prog -> 'BEGIN' DecList 'SEMI' StmL 'END' .
 
   actions:
     action 'HIGH' (noprec):   reduce Prog --> 'BEGIN' DecList 'SEMI' StmL 'END'
@@ -629,7 +629,7 @@ state 11:
 
 state 12:
   items:
-    Prog -> 'BEGIN' StmL 'END' . 
+    Prog -> 'BEGIN' StmL 'END' .
 
   actions:
     action 'HIGH' (noprec):   reduce Prog --> 'BEGIN' StmL 'END'
@@ -680,7 +680,7 @@ state 12:
 
 state 13:
   items:
-    BasicTyp -> 'BTYP' . 
+    BasicTyp -> 'BTYP' .
 
   actions:
     action 'HIGH' (noprec):   reduce BasicTyp --> 'BTYP'
@@ -731,7 +731,7 @@ state 13:
 
 state 14:
   items:
-    BasicTyp -> 'ITYP' . 
+    BasicTyp -> 'ITYP' .
 
   actions:
     action 'HIGH' (noprec):   reduce BasicTyp --> 'ITYP'
@@ -782,7 +782,7 @@ state 14:
 
 state 15:
   items:
-    Typ -> BasicTyp . 
+    Typ -> BasicTyp .
 
   actions:
     action 'HIGH' (noprec):   reduce Typ --> BasicTyp
@@ -885,7 +885,7 @@ state 16:
 state 17:
   items:
     Dec -> 'NAME' . 'COLON' Typ
-    Access -> 'NAME' . 
+    Access -> 'NAME' .
 
   actions:
     action 'HIGH' (noprec):   reduce Access --> 'NAME'
@@ -989,7 +989,7 @@ state 18:
 
 state 19:
   items:
-    Dec -> 'NAME' 'COLON' Typ . 
+    Dec -> 'NAME' 'COLON' Typ .
 
   actions:
     action 'HIGH' (noprec):   reduce Dec --> 'NAME' 'COLON' Typ
@@ -1040,7 +1040,7 @@ state 19:
 
 state 20:
   items:
-    DecList -> Dec . 
+    DecList -> Dec .
     DecList -> Dec . 'COMMA' DecList
 
   actions:
@@ -1145,7 +1145,7 @@ state 21:
 
 state 22:
   items:
-    DecList -> Dec 'COMMA' DecList . 
+    DecList -> Dec 'COMMA' DecList .
 
   actions:
     action 'HIGH' (noprec):   reduce DecList --> Dec 'COMMA' DecList
@@ -1196,7 +1196,7 @@ state 22:
 
 state 23:
   items:
-    Access -> 'NAME' . 
+    Access -> 'NAME' .
 
   actions:
     action 'HIGH' (noprec):   reduce Access --> 'NAME'
@@ -1300,7 +1300,7 @@ state 24:
 
 state 25:
   items:
-    Stm -> 'PRINT' Exp . 
+    Stm -> 'PRINT' Exp .
     Exp -> Exp . 'TIMES' Exp
     Exp -> Exp . 'PLUS' Exp
     Exp -> Exp . 'MINUS' Exp
@@ -1464,7 +1464,7 @@ state 27:
 
 state 28:
   items:
-    Stm -> Access 'ASG' Exp . 
+    Stm -> Access 'ASG' Exp .
     Exp -> Exp . 'TIMES' Exp
     Exp -> Exp . 'PLUS' Exp
     Exp -> Exp . 'MINUS' Exp
@@ -1524,7 +1524,7 @@ state 28:
 
 state 29:
   items:
-    Stm -> 'SKIP' . 
+    Stm -> 'SKIP' .
 
   actions:
     action 'HIGH' (noprec):   reduce Stm --> 'SKIP'
@@ -1575,7 +1575,7 @@ state 29:
 
 state 30:
   items:
-    Stm -> 'ABORT' . 
+    Stm -> 'ABORT' .
 
   actions:
     action 'HIGH' (noprec):   reduce Stm --> 'ABORT'
@@ -1629,48 +1629,48 @@ state 31:
     Stm -> 'LCP' . StmL 'RCP'
 
   actions:
-    action 'HIGH' (noprec):   reduce StmL --> 
-    action 'EOF' (noprec):   reduce StmL --> 
+    action 'HIGH' (noprec):   reduce StmL -->
+    action 'EOF' (noprec):   reduce StmL -->
     action 'PRINT' (noprec):   shift 24
-    action 'ASG' (noprec):   reduce StmL --> 
+    action 'ASG' (noprec):   reduce StmL -->
     action 'SKIP' (noprec):   shift 29
     action 'ABORT' (noprec):   shift 30
-    action 'NEG' (noprec):   reduce StmL --> 
-    action 'PLUS' (noprec):   reduce StmL --> 
-    action 'MINUS' (noprec):   reduce StmL --> 
-    action 'TIMES' (noprec):   reduce StmL --> 
-    action 'AND' (noprec):   reduce StmL --> 
-    action 'EQ' (noprec):   reduce StmL --> 
-    action 'LE' (noprec):   reduce StmL --> 
-    action 'LT' (noprec):   reduce StmL --> 
-    action 'GT' (noprec):   reduce StmL --> 
-    action 'NEQ' (noprec):   reduce StmL --> 
-    action 'COMMA' (noprec):   reduce StmL --> 
-    action 'COLON' (noprec):   reduce StmL --> 
-    action 'SEMI' (noprec):   reduce StmL --> 
-    action 'BAR' (noprec):   reduce StmL --> 
-    action 'TO' (noprec):   reduce StmL --> 
+    action 'NEG' (noprec):   reduce StmL -->
+    action 'PLUS' (noprec):   reduce StmL -->
+    action 'MINUS' (noprec):   reduce StmL -->
+    action 'TIMES' (noprec):   reduce StmL -->
+    action 'AND' (noprec):   reduce StmL -->
+    action 'EQ' (noprec):   reduce StmL -->
+    action 'LE' (noprec):   reduce StmL -->
+    action 'LT' (noprec):   reduce StmL -->
+    action 'GT' (noprec):   reduce StmL -->
+    action 'NEQ' (noprec):   reduce StmL -->
+    action 'COMMA' (noprec):   reduce StmL -->
+    action 'COLON' (noprec):   reduce StmL -->
+    action 'SEMI' (noprec):   reduce StmL -->
+    action 'BAR' (noprec):   reduce StmL -->
+    action 'TO' (noprec):   reduce StmL -->
     action 'IF' (noprec):   shift 34
-    action 'FI' (noprec):   reduce StmL --> 
+    action 'FI' (noprec):   reduce StmL -->
     action 'DO' (noprec):   shift 37
-    action 'OD' (noprec):   reduce StmL --> 
-    action 'BEGIN' (noprec):   reduce StmL --> 
-    action 'END' (noprec):   reduce StmL --> 
-    action 'LP' (noprec):   reduce StmL --> 
+    action 'OD' (noprec):   reduce StmL -->
+    action 'BEGIN' (noprec):   reduce StmL -->
+    action 'END' (noprec):   reduce StmL -->
+    action 'LP' (noprec):   reduce StmL -->
     action 'LCP' (noprec):   shift 31
-    action 'LSP' (noprec):   reduce StmL --> 
-    action 'RP' (noprec):   reduce StmL --> 
-    action 'RCP' (noprec):   reduce StmL --> 
-    action 'RSP' (noprec):   reduce StmL --> 
-    action 'ITYP' (noprec):   reduce StmL --> 
-    action 'BTYP' (noprec):   reduce StmL --> 
+    action 'LSP' (noprec):   reduce StmL -->
+    action 'RP' (noprec):   reduce StmL -->
+    action 'RCP' (noprec):   reduce StmL -->
+    action 'RSP' (noprec):   reduce StmL -->
+    action 'ITYP' (noprec):   reduce StmL -->
+    action 'BTYP' (noprec):   reduce StmL -->
     action 'NAME' (noprec):   shift 23
-    action 'STRING' (noprec):   reduce StmL --> 
-    action 'BOOL' (noprec):   reduce StmL --> 
-    action 'INT' (noprec):   reduce StmL --> 
-    action 'error' (noprec):   reduce StmL --> 
-    action '#' (noprec):   reduce StmL --> 
-    action '$$' (noprec):   reduce StmL --> 
+    action 'STRING' (noprec):   reduce StmL -->
+    action 'BOOL' (noprec):   reduce StmL -->
+    action 'INT' (noprec):   reduce StmL -->
+    action 'error' (noprec):   reduce StmL -->
+    action '#' (noprec):   reduce StmL -->
+    action '$$' (noprec):   reduce StmL -->
 
   immediate action: <none>
  gotos:
@@ -1732,7 +1732,7 @@ state 32:
 
 state 33:
   items:
-    Stm -> 'LCP' StmL 'RCP' . 
+    Stm -> 'LCP' StmL 'RCP' .
 
   actions:
     action 'HIGH' (noprec):   reduce Stm --> 'LCP' StmL 'RCP'
@@ -1786,48 +1786,48 @@ state 34:
     Stm -> 'IF' . GuardedCommand 'FI'
 
   actions:
-    action 'HIGH' (noprec):   reduce GuardedCommand --> 
-    action 'EOF' (noprec):   reduce GuardedCommand --> 
-    action 'PRINT' (noprec):   reduce GuardedCommand --> 
-    action 'ASG' (noprec):   reduce GuardedCommand --> 
-    action 'SKIP' (noprec):   reduce GuardedCommand --> 
-    action 'ABORT' (noprec):   reduce GuardedCommand --> 
+    action 'HIGH' (noprec):   reduce GuardedCommand -->
+    action 'EOF' (noprec):   reduce GuardedCommand -->
+    action 'PRINT' (noprec):   reduce GuardedCommand -->
+    action 'ASG' (noprec):   reduce GuardedCommand -->
+    action 'SKIP' (noprec):   reduce GuardedCommand -->
+    action 'ABORT' (noprec):   reduce GuardedCommand -->
     action 'NEG' (explicit nonassoc 9997):   shift 58
-    action 'PLUS' (noprec):   reduce GuardedCommand --> 
+    action 'PLUS' (noprec):   reduce GuardedCommand -->
     action 'MINUS' (explicit left 9999):   shift 56
-    action 'TIMES' (noprec):   reduce GuardedCommand --> 
-    action 'AND' (noprec):   reduce GuardedCommand --> 
-    action 'EQ' (noprec):   reduce GuardedCommand --> 
-    action 'LE' (noprec):   reduce GuardedCommand --> 
-    action 'LT' (noprec):   reduce GuardedCommand --> 
-    action 'GT' (noprec):   reduce GuardedCommand --> 
-    action 'NEQ' (noprec):   reduce GuardedCommand --> 
-    action 'COMMA' (noprec):   reduce GuardedCommand --> 
-    action 'COLON' (noprec):   reduce GuardedCommand --> 
-    action 'SEMI' (noprec):   reduce GuardedCommand --> 
-    action 'BAR' (noprec):   reduce GuardedCommand --> 
-    action 'TO' (noprec):   reduce GuardedCommand --> 
-    action 'IF' (noprec):   reduce GuardedCommand --> 
-    action 'FI' (noprec):   reduce GuardedCommand --> 
-    action 'DO' (noprec):   reduce GuardedCommand --> 
-    action 'OD' (noprec):   reduce GuardedCommand --> 
-    action 'BEGIN' (noprec):   reduce GuardedCommand --> 
-    action 'END' (noprec):   reduce GuardedCommand --> 
+    action 'TIMES' (noprec):   reduce GuardedCommand -->
+    action 'AND' (noprec):   reduce GuardedCommand -->
+    action 'EQ' (noprec):   reduce GuardedCommand -->
+    action 'LE' (noprec):   reduce GuardedCommand -->
+    action 'LT' (noprec):   reduce GuardedCommand -->
+    action 'GT' (noprec):   reduce GuardedCommand -->
+    action 'NEQ' (noprec):   reduce GuardedCommand -->
+    action 'COMMA' (noprec):   reduce GuardedCommand -->
+    action 'COLON' (noprec):   reduce GuardedCommand -->
+    action 'SEMI' (noprec):   reduce GuardedCommand -->
+    action 'BAR' (noprec):   reduce GuardedCommand -->
+    action 'TO' (noprec):   reduce GuardedCommand -->
+    action 'IF' (noprec):   reduce GuardedCommand -->
+    action 'FI' (noprec):   reduce GuardedCommand -->
+    action 'DO' (noprec):   reduce GuardedCommand -->
+    action 'OD' (noprec):   reduce GuardedCommand -->
+    action 'BEGIN' (noprec):   reduce GuardedCommand -->
+    action 'END' (noprec):   reduce GuardedCommand -->
     action 'LP' (noprec):   shift 53
-    action 'LCP' (noprec):   reduce GuardedCommand --> 
-    action 'LSP' (noprec):   reduce GuardedCommand --> 
-    action 'RP' (noprec):   reduce GuardedCommand --> 
-    action 'RCP' (noprec):   reduce GuardedCommand --> 
-    action 'RSP' (noprec):   reduce GuardedCommand --> 
-    action 'ITYP' (noprec):   reduce GuardedCommand --> 
-    action 'BTYP' (noprec):   reduce GuardedCommand --> 
+    action 'LCP' (noprec):   reduce GuardedCommand -->
+    action 'LSP' (noprec):   reduce GuardedCommand -->
+    action 'RP' (noprec):   reduce GuardedCommand -->
+    action 'RCP' (noprec):   reduce GuardedCommand -->
+    action 'RSP' (noprec):   reduce GuardedCommand -->
+    action 'ITYP' (noprec):   reduce GuardedCommand -->
+    action 'BTYP' (noprec):   reduce GuardedCommand -->
     action 'NAME' (noprec):   shift 23
-    action 'STRING' (noprec):   reduce GuardedCommand --> 
+    action 'STRING' (noprec):   reduce GuardedCommand -->
     action 'BOOL' (noprec):   shift 52
     action 'INT' (noprec):   shift 51
-    action 'error' (noprec):   reduce GuardedCommand --> 
-    action '#' (noprec):   reduce GuardedCommand --> 
-    action '$$' (noprec):   reduce GuardedCommand --> 
+    action 'error' (noprec):   reduce GuardedCommand -->
+    action '#' (noprec):   reduce GuardedCommand -->
+    action '$$' (noprec):   reduce GuardedCommand -->
 
   immediate action: <none>
  gotos:
@@ -1889,7 +1889,7 @@ state 35:
 
 state 36:
   items:
-    Stm -> 'IF' GuardedCommand 'FI' . 
+    Stm -> 'IF' GuardedCommand 'FI' .
 
   actions:
     action 'HIGH' (noprec):   reduce Stm --> 'IF' GuardedCommand 'FI'
@@ -1943,48 +1943,48 @@ state 37:
     Stm -> 'DO' . GuardedCommand 'OD'
 
   actions:
-    action 'HIGH' (noprec):   reduce GuardedCommand --> 
-    action 'EOF' (noprec):   reduce GuardedCommand --> 
-    action 'PRINT' (noprec):   reduce GuardedCommand --> 
-    action 'ASG' (noprec):   reduce GuardedCommand --> 
-    action 'SKIP' (noprec):   reduce GuardedCommand --> 
-    action 'ABORT' (noprec):   reduce GuardedCommand --> 
+    action 'HIGH' (noprec):   reduce GuardedCommand -->
+    action 'EOF' (noprec):   reduce GuardedCommand -->
+    action 'PRINT' (noprec):   reduce GuardedCommand -->
+    action 'ASG' (noprec):   reduce GuardedCommand -->
+    action 'SKIP' (noprec):   reduce GuardedCommand -->
+    action 'ABORT' (noprec):   reduce GuardedCommand -->
     action 'NEG' (explicit nonassoc 9997):   shift 58
-    action 'PLUS' (noprec):   reduce GuardedCommand --> 
+    action 'PLUS' (noprec):   reduce GuardedCommand -->
     action 'MINUS' (explicit left 9999):   shift 56
-    action 'TIMES' (noprec):   reduce GuardedCommand --> 
-    action 'AND' (noprec):   reduce GuardedCommand --> 
-    action 'EQ' (noprec):   reduce GuardedCommand --> 
-    action 'LE' (noprec):   reduce GuardedCommand --> 
-    action 'LT' (noprec):   reduce GuardedCommand --> 
-    action 'GT' (noprec):   reduce GuardedCommand --> 
-    action 'NEQ' (noprec):   reduce GuardedCommand --> 
-    action 'COMMA' (noprec):   reduce GuardedCommand --> 
-    action 'COLON' (noprec):   reduce GuardedCommand --> 
-    action 'SEMI' (noprec):   reduce GuardedCommand --> 
-    action 'BAR' (noprec):   reduce GuardedCommand --> 
-    action 'TO' (noprec):   reduce GuardedCommand --> 
-    action 'IF' (noprec):   reduce GuardedCommand --> 
-    action 'FI' (noprec):   reduce GuardedCommand --> 
-    action 'DO' (noprec):   reduce GuardedCommand --> 
-    action 'OD' (noprec):   reduce GuardedCommand --> 
-    action 'BEGIN' (noprec):   reduce GuardedCommand --> 
-    action 'END' (noprec):   reduce GuardedCommand --> 
+    action 'TIMES' (noprec):   reduce GuardedCommand -->
+    action 'AND' (noprec):   reduce GuardedCommand -->
+    action 'EQ' (noprec):   reduce GuardedCommand -->
+    action 'LE' (noprec):   reduce GuardedCommand -->
+    action 'LT' (noprec):   reduce GuardedCommand -->
+    action 'GT' (noprec):   reduce GuardedCommand -->
+    action 'NEQ' (noprec):   reduce GuardedCommand -->
+    action 'COMMA' (noprec):   reduce GuardedCommand -->
+    action 'COLON' (noprec):   reduce GuardedCommand -->
+    action 'SEMI' (noprec):   reduce GuardedCommand -->
+    action 'BAR' (noprec):   reduce GuardedCommand -->
+    action 'TO' (noprec):   reduce GuardedCommand -->
+    action 'IF' (noprec):   reduce GuardedCommand -->
+    action 'FI' (noprec):   reduce GuardedCommand -->
+    action 'DO' (noprec):   reduce GuardedCommand -->
+    action 'OD' (noprec):   reduce GuardedCommand -->
+    action 'BEGIN' (noprec):   reduce GuardedCommand -->
+    action 'END' (noprec):   reduce GuardedCommand -->
     action 'LP' (noprec):   shift 53
-    action 'LCP' (noprec):   reduce GuardedCommand --> 
-    action 'LSP' (noprec):   reduce GuardedCommand --> 
-    action 'RP' (noprec):   reduce GuardedCommand --> 
-    action 'RCP' (noprec):   reduce GuardedCommand --> 
-    action 'RSP' (noprec):   reduce GuardedCommand --> 
-    action 'ITYP' (noprec):   reduce GuardedCommand --> 
-    action 'BTYP' (noprec):   reduce GuardedCommand --> 
+    action 'LCP' (noprec):   reduce GuardedCommand -->
+    action 'LSP' (noprec):   reduce GuardedCommand -->
+    action 'RP' (noprec):   reduce GuardedCommand -->
+    action 'RCP' (noprec):   reduce GuardedCommand -->
+    action 'RSP' (noprec):   reduce GuardedCommand -->
+    action 'ITYP' (noprec):   reduce GuardedCommand -->
+    action 'BTYP' (noprec):   reduce GuardedCommand -->
     action 'NAME' (noprec):   shift 23
-    action 'STRING' (noprec):   reduce GuardedCommand --> 
+    action 'STRING' (noprec):   reduce GuardedCommand -->
     action 'BOOL' (noprec):   shift 52
     action 'INT' (noprec):   shift 51
-    action 'error' (noprec):   reduce GuardedCommand --> 
-    action '#' (noprec):   reduce GuardedCommand --> 
-    action '$$' (noprec):   reduce GuardedCommand --> 
+    action 'error' (noprec):   reduce GuardedCommand -->
+    action '#' (noprec):   reduce GuardedCommand -->
+    action '$$' (noprec):   reduce GuardedCommand -->
 
   immediate action: <none>
  gotos:
@@ -2046,7 +2046,7 @@ state 38:
 
 state 39:
   items:
-    Stm -> 'DO' GuardedCommand 'OD' . 
+    Stm -> 'DO' GuardedCommand 'OD' .
 
   actions:
     action 'HIGH' (noprec):   reduce Stm --> 'DO' GuardedCommand 'OD'
@@ -2097,7 +2097,7 @@ state 39:
 
 state 40:
   items:
-    StmL -> StmList . 
+    StmL -> StmList .
 
   actions:
     action 'HIGH' (noprec):   reduce StmL --> StmList
@@ -2148,7 +2148,7 @@ state 40:
 
 state 41:
   items:
-    StmList -> Stm . 
+    StmList -> Stm .
     StmList -> Stm . 'SEMI' StmList
 
   actions:
@@ -2254,7 +2254,7 @@ state 42:
 
 state 43:
   items:
-    StmList -> Stm 'SEMI' StmList . 
+    StmList -> Stm 'SEMI' StmList .
 
   actions:
     action 'HIGH' (noprec):   reduce StmList --> Stm 'SEMI' StmList
@@ -2305,7 +2305,7 @@ state 43:
 
 state 44:
   items:
-    GuardedCommand -> GCList . 
+    GuardedCommand -> GCList .
 
   actions:
     action 'HIGH' (noprec):   reduce GuardedCommand --> GCList
@@ -2421,48 +2421,48 @@ state 46:
     GCList -> Exp 'TO' . StmL 'BAR' GCList
 
   actions:
-    action 'HIGH' (noprec):   reduce StmL --> 
-    action 'EOF' (noprec):   reduce StmL --> 
+    action 'HIGH' (noprec):   reduce StmL -->
+    action 'EOF' (noprec):   reduce StmL -->
     action 'PRINT' (noprec):   shift 24
-    action 'ASG' (noprec):   reduce StmL --> 
+    action 'ASG' (noprec):   reduce StmL -->
     action 'SKIP' (noprec):   shift 29
     action 'ABORT' (noprec):   shift 30
-    action 'NEG' (noprec):   reduce StmL --> 
-    action 'PLUS' (noprec):   reduce StmL --> 
-    action 'MINUS' (noprec):   reduce StmL --> 
-    action 'TIMES' (noprec):   reduce StmL --> 
-    action 'AND' (noprec):   reduce StmL --> 
-    action 'EQ' (noprec):   reduce StmL --> 
-    action 'LE' (noprec):   reduce StmL --> 
-    action 'LT' (noprec):   reduce StmL --> 
-    action 'GT' (noprec):   reduce StmL --> 
-    action 'NEQ' (noprec):   reduce StmL --> 
-    action 'COMMA' (noprec):   reduce StmL --> 
-    action 'COLON' (noprec):   reduce StmL --> 
-    action 'SEMI' (noprec):   reduce StmL --> 
-    action 'BAR' (noprec):   reduce StmL --> 
-    action 'TO' (noprec):   reduce StmL --> 
+    action 'NEG' (noprec):   reduce StmL -->
+    action 'PLUS' (noprec):   reduce StmL -->
+    action 'MINUS' (noprec):   reduce StmL -->
+    action 'TIMES' (noprec):   reduce StmL -->
+    action 'AND' (noprec):   reduce StmL -->
+    action 'EQ' (noprec):   reduce StmL -->
+    action 'LE' (noprec):   reduce StmL -->
+    action 'LT' (noprec):   reduce StmL -->
+    action 'GT' (noprec):   reduce StmL -->
+    action 'NEQ' (noprec):   reduce StmL -->
+    action 'COMMA' (noprec):   reduce StmL -->
+    action 'COLON' (noprec):   reduce StmL -->
+    action 'SEMI' (noprec):   reduce StmL -->
+    action 'BAR' (noprec):   reduce StmL -->
+    action 'TO' (noprec):   reduce StmL -->
     action 'IF' (noprec):   shift 34
-    action 'FI' (noprec):   reduce StmL --> 
+    action 'FI' (noprec):   reduce StmL -->
     action 'DO' (noprec):   shift 37
-    action 'OD' (noprec):   reduce StmL --> 
-    action 'BEGIN' (noprec):   reduce StmL --> 
-    action 'END' (noprec):   reduce StmL --> 
-    action 'LP' (noprec):   reduce StmL --> 
+    action 'OD' (noprec):   reduce StmL -->
+    action 'BEGIN' (noprec):   reduce StmL -->
+    action 'END' (noprec):   reduce StmL -->
+    action 'LP' (noprec):   reduce StmL -->
     action 'LCP' (noprec):   shift 31
-    action 'LSP' (noprec):   reduce StmL --> 
-    action 'RP' (noprec):   reduce StmL --> 
-    action 'RCP' (noprec):   reduce StmL --> 
-    action 'RSP' (noprec):   reduce StmL --> 
-    action 'ITYP' (noprec):   reduce StmL --> 
-    action 'BTYP' (noprec):   reduce StmL --> 
+    action 'LSP' (noprec):   reduce StmL -->
+    action 'RP' (noprec):   reduce StmL -->
+    action 'RCP' (noprec):   reduce StmL -->
+    action 'RSP' (noprec):   reduce StmL -->
+    action 'ITYP' (noprec):   reduce StmL -->
+    action 'BTYP' (noprec):   reduce StmL -->
     action 'NAME' (noprec):   shift 23
-    action 'STRING' (noprec):   reduce StmL --> 
-    action 'BOOL' (noprec):   reduce StmL --> 
-    action 'INT' (noprec):   reduce StmL --> 
-    action 'error' (noprec):   reduce StmL --> 
-    action '#' (noprec):   reduce StmL --> 
-    action '$$' (noprec):   reduce StmL --> 
+    action 'STRING' (noprec):   reduce StmL -->
+    action 'BOOL' (noprec):   reduce StmL -->
+    action 'INT' (noprec):   reduce StmL -->
+    action 'error' (noprec):   reduce StmL -->
+    action '#' (noprec):   reduce StmL -->
+    action '$$' (noprec):   reduce StmL -->
 
   immediate action: <none>
  gotos:
@@ -2473,7 +2473,7 @@ state 46:
 
 state 47:
   items:
-    GCList -> Exp 'TO' StmL . 
+    GCList -> Exp 'TO' StmL .
     GCList -> Exp 'TO' StmL . 'BAR' GCList
 
   actions:
@@ -2579,7 +2579,7 @@ state 48:
 
 state 49:
   items:
-    GCList -> Exp 'TO' StmL 'BAR' GCList . 
+    GCList -> Exp 'TO' StmL 'BAR' GCList .
 
   actions:
     action 'HIGH' (noprec):   reduce GCList --> Exp 'TO' StmL 'BAR' GCList
@@ -2630,7 +2630,7 @@ state 49:
 
 state 50:
   items:
-    Exp -> Access . 
+    Exp -> Access .
 
   actions:
     action 'HIGH' (noprec):   reduce Exp --> Access
@@ -2681,7 +2681,7 @@ state 50:
 
 state 51:
   items:
-    Exp -> 'INT' . 
+    Exp -> 'INT' .
 
   actions:
     action 'HIGH' (noprec):   reduce Exp --> 'INT'
@@ -2732,7 +2732,7 @@ state 51:
 
 state 52:
   items:
-    Exp -> 'BOOL' . 
+    Exp -> 'BOOL' .
 
   actions:
     action 'HIGH' (noprec):   reduce Exp --> 'BOOL'
@@ -2896,7 +2896,7 @@ state 54:
 
 state 55:
   items:
-    Exp -> 'LP' Exp 'RP' . 
+    Exp -> 'LP' Exp 'RP' .
 
   actions:
     action 'HIGH' (noprec):   reduce Exp --> 'LP' Exp 'RP'
@@ -3000,7 +3000,7 @@ state 56:
 
 state 57:
   items:
-    Exp -> 'MINUS' Exp . 
+    Exp -> 'MINUS' Exp .
     Exp -> Exp . 'TIMES' Exp
     Exp -> Exp . 'PLUS' Exp
     Exp -> Exp . 'MINUS' Exp
@@ -3113,7 +3113,7 @@ state 58:
 
 state 59:
   items:
-    Exp -> 'NEG' Exp . 
+    Exp -> 'NEG' Exp .
     Exp -> Exp . 'TIMES' Exp
     Exp -> Exp . 'PLUS' Exp
     Exp -> Exp . 'MINUS' Exp
@@ -3174,7 +3174,7 @@ state 59:
 state 60:
   items:
     Exp -> Exp . 'TIMES' Exp
-    Exp -> Exp 'TIMES' Exp . 
+    Exp -> Exp 'TIMES' Exp .
     Exp -> Exp . 'PLUS' Exp
     Exp -> Exp . 'MINUS' Exp
     Exp -> Exp . 'AND' Exp
@@ -3235,7 +3235,7 @@ state 61:
   items:
     Exp -> Exp . 'TIMES' Exp
     Exp -> Exp . 'PLUS' Exp
-    Exp -> Exp 'PLUS' Exp . 
+    Exp -> Exp 'PLUS' Exp .
     Exp -> Exp . 'MINUS' Exp
     Exp -> Exp . 'AND' Exp
     Exp -> Exp . 'EQ' Exp
@@ -3296,7 +3296,7 @@ state 62:
     Exp -> Exp . 'TIMES' Exp
     Exp -> Exp . 'PLUS' Exp
     Exp -> Exp . 'MINUS' Exp
-    Exp -> Exp 'MINUS' Exp . 
+    Exp -> Exp 'MINUS' Exp .
     Exp -> Exp . 'AND' Exp
     Exp -> Exp . 'EQ' Exp
     Exp -> Exp . 'LE' Exp
@@ -3357,7 +3357,7 @@ state 63:
     Exp -> Exp . 'PLUS' Exp
     Exp -> Exp . 'MINUS' Exp
     Exp -> Exp . 'AND' Exp
-    Exp -> Exp 'AND' Exp . 
+    Exp -> Exp 'AND' Exp .
     Exp -> Exp . 'EQ' Exp
     Exp -> Exp . 'LE' Exp
     Exp -> Exp . 'GT' Exp
@@ -3418,7 +3418,7 @@ state 64:
     Exp -> Exp . 'MINUS' Exp
     Exp -> Exp . 'AND' Exp
     Exp -> Exp . 'EQ' Exp
-    Exp -> Exp 'EQ' Exp . 
+    Exp -> Exp 'EQ' Exp .
     Exp -> Exp . 'LE' Exp
     Exp -> Exp . 'GT' Exp
     Exp -> Exp . 'LT' Exp
@@ -3479,7 +3479,7 @@ state 65:
     Exp -> Exp . 'AND' Exp
     Exp -> Exp . 'EQ' Exp
     Exp -> Exp . 'LE' Exp
-    Exp -> Exp 'LE' Exp . 
+    Exp -> Exp 'LE' Exp .
     Exp -> Exp . 'GT' Exp
     Exp -> Exp . 'LT' Exp
     Exp -> Exp . 'NEQ' Exp
@@ -3540,7 +3540,7 @@ state 66:
     Exp -> Exp . 'EQ' Exp
     Exp -> Exp . 'LE' Exp
     Exp -> Exp . 'GT' Exp
-    Exp -> Exp 'GT' Exp . 
+    Exp -> Exp 'GT' Exp .
     Exp -> Exp . 'LT' Exp
     Exp -> Exp . 'NEQ' Exp
 
@@ -3601,7 +3601,7 @@ state 67:
     Exp -> Exp . 'LE' Exp
     Exp -> Exp . 'GT' Exp
     Exp -> Exp . 'LT' Exp
-    Exp -> Exp 'LT' Exp . 
+    Exp -> Exp 'LT' Exp .
     Exp -> Exp . 'NEQ' Exp
 
   actions:
@@ -3662,7 +3662,7 @@ state 68:
     Exp -> Exp . 'GT' Exp
     Exp -> Exp . 'LT' Exp
     Exp -> Exp . 'NEQ' Exp
-    Exp -> Exp 'NEQ' Exp . 
+    Exp -> Exp 'NEQ' Exp .
 
   actions:
     action 'HIGH' (explicit left 9998):   reduce Exp --> Exp 'NEQ' Exp

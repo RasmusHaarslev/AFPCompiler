@@ -1,31 +1,31 @@
 # 1 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
- 
+
 module Lexer
 open System
 open System.Text
 open Parser
 open Microsoft.FSharp.Text.Lexing
 
-let keyword s = 
+let keyword s =
     match s with
     | "bool"      -> BTYP
     | "int"       -> ITYP
-    | "print"     -> PRINT 
+    | "print"     -> PRINT
     | "skip"      -> SKIP
     | "abort"     -> ABORT
     | "begin"     -> BEGIN
-    | "end"       -> END 
-    | "if"        -> IF 
-    | "fi"        -> FI 
+    | "end"       -> END
+    | "if"        -> IF
+    | "fi"        -> FI
     | "do"        -> DO
-    | "od"        -> OD     
-    | "true"      -> BOOL(true) 
+    | "od"        -> OD
+    | "true"      -> BOOL(true)
     | "false"     -> BOOL(false)
-    | _           -> NAME s  
+    | _           -> NAME s
 
 # 26 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
-let trans : uint16[] array = 
-    [| 
+let trans : uint16[] array =
+    [|
    (* State 0 *)
  [|65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 1us; 2us; 65535us; 65535us; 3us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 1us; 16us; 65535us; 65535us; 65535us; 65535us; 17us; 65535us; 5us; 6us; 20us; 22us; 11us; 15us; 65535us; 65535us; 4us; 4us; 4us; 4us; 4us; 4us; 4us; 4us; 4us; 4us; 13us; 12us; 18us; 21us; 19us; 65535us; 65535us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 7us; 65535us; 8us; 65535us; 65535us; 65535us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 23us; 9us; 14us; 10us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 24us; |];
    (* State 1 *)
@@ -90,148 +90,148 @@ let trans : uint16[] array =
  [|65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; |];
    (* State 31 *)
  [|65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 31us; 31us; 31us; 31us; 31us; 31us; 31us; 31us; 31us; 31us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; |];
-    |] 
+    |]
 let actions : uint16[] = [|65535us; 0us; 1us; 65535us; 2us; 3us; 4us; 5us; 6us; 7us; 8us; 9us; 10us; 11us; 12us; 22us; 15us; 65535us; 18us; 19us; 21us; 23us; 24us; 25us; 26us; 25us; 17us; 20us; 16us; 13us; 14us; 2us; |]
 let _fslex_tables = Microsoft.FSharp.Text.Lexing.AsciiTables.Create(trans,actions)
-let rec _fslex_dummy () = _fslex_dummy() 
+let rec _fslex_dummy () = _fslex_dummy()
 (* Rule tokenize *)
 and tokenize  (lexbuf : Microsoft.FSharp.Text.Lexing.LexBuffer<_>) = _fslex_tokenize  0 lexbuf
 (* Rule tokenize *)
 and _fslex_tokenize  _fslex_state lexbuf =
   match _fslex_tables.Interpret(_fslex_state,lexbuf) with
-  | 0 -> ( 
+  | 0 -> (
 # 39 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 tokenize lexbuf 
+                                 tokenize lexbuf
 # 105 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 1 -> ( 
+  | 1 -> (
 # 40 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 lexbuf.EndPos <- lexbuf.EndPos.NextLine; tokenize lexbuf 
+                                 lexbuf.EndPos <- lexbuf.EndPos.NextLine; tokenize lexbuf
 # 110 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 2 -> ( 
+  | 2 -> (
 # 41 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 INT<| Int32.Parse(Encoding.UTF8.GetString(lexbuf.Lexeme)) 
+                                 INT<| Int32.Parse(Encoding.UTF8.GetString(lexbuf.Lexeme))
 # 115 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 3 -> ( 
+  | 3 -> (
 # 42 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 LP  
+                                 LP
 # 120 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 4 -> ( 
+  | 4 -> (
 # 43 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 RP  
+                                 RP
 # 125 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 5 -> ( 
+  | 5 -> (
 # 44 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 LSP 
+                                 LSP
 # 130 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 6 -> ( 
+  | 6 -> (
 # 45 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 RSP 
+                                 RSP
 # 135 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 7 -> ( 
+  | 7 -> (
 # 46 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 LCP 
+                                 LCP
 # 140 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 8 -> ( 
+  | 8 -> (
 # 47 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 RCP 
+                                 RCP
 # 145 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 9 -> ( 
+  | 9 -> (
 # 48 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 COMMA 
+                                 COMMA
 # 150 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 10 -> ( 
+  | 10 -> (
 # 49 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 SEMI  
+                                 SEMI
 # 155 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 11 -> ( 
+  | 11 -> (
 # 50 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 COLON 
+                                 COLON
 # 160 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 12 -> ( 
+  | 12 -> (
 # 51 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 BAR 
+                                 BAR
 # 165 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 13 -> ( 
+  | 13 -> (
 # 52 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 TO 
+                                 TO
 # 170 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 14 -> ( 
+  | 14 -> (
 # 53 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 ASG   
+                                 ASG
 # 175 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 15 -> ( 
+  | 15 -> (
 # 54 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 NEG 
+                                 NEG
 # 180 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 16 -> ( 
+  | 16 -> (
 # 55 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 AND 
+                                 AND
 # 185 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 17 -> ( 
+  | 17 -> (
 # 56 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 NEQ 
+                                 NEQ
 # 190 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 18 -> ( 
+  | 18 -> (
 # 57 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 LT 
+                                 LT
 # 195 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 19 -> ( 
+  | 19 -> (
 # 58 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 GT 
+                                 GT
 # 200 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 20 -> ( 
+  | 20 -> (
 # 59 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 LE 
+                                 LE
 # 205 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 21 -> ( 
+  | 21 -> (
 # 60 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 TIMES 
+                                 TIMES
 # 210 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 22 -> ( 
+  | 22 -> (
 # 61 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 MINUS 
+                                 MINUS
 # 215 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 23 -> ( 
+  | 23 -> (
 # 62 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 EQ 
+                                 EQ
 # 220 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 24 -> ( 
+  | 24 -> (
 # 63 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 PLUS 
+                                 PLUS
 # 225 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 25 -> ( 
+  | 25 -> (
 # 64 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 keyword(Encoding.UTF8.GetString(lexbuf.Lexeme)) 
+                                 keyword(Encoding.UTF8.GetString(lexbuf.Lexeme))
 # 230 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
-  | 26 -> ( 
+  | 26 -> (
 # 65 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 EOF 
+                                 EOF
 # 235 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | _ -> failwith "tokenize"

@@ -9,7 +9,7 @@ open GuardedCommands.Frontend.AST
 
 # 10 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fs"
 // This type is the type of tokens accepted by the parser
-type token = 
+type token =
   | HIGH
   | EOF
   | PRINT
@@ -50,7 +50,7 @@ type token =
   | BOOL of (bool)
   | INT of (int)
 // This type is used to give symbolic names to token indexes, useful for error messages
-type tokenId = 
+type tokenId =
     | TOKEN_HIGH
     | TOKEN_EOF
     | TOKEN_PRINT
@@ -93,7 +93,7 @@ type tokenId =
     | TOKEN_end_of_input
     | TOKEN_error
 // This type is used to give symbolic names to token indexes, useful for error messages
-type nonTerminalId = 
+type nonTerminalId =
     | NONTERM__startMain
     | NONTERM__startProg
     | NONTERM_Main
@@ -112,231 +112,231 @@ type nonTerminalId =
     | NONTERM_Exp
 
 // This function maps tokens to integers indexes
-let tagOfToken (t:token) = 
+let tagOfToken (t:token) =
   match t with
-  | HIGH  -> 0 
-  | EOF  -> 1 
-  | PRINT  -> 2 
-  | ASG  -> 3 
-  | SKIP  -> 4 
-  | ABORT  -> 5 
-  | NEG  -> 6 
-  | PLUS  -> 7 
-  | MINUS  -> 8 
-  | TIMES  -> 9 
-  | AND  -> 10 
-  | EQ  -> 11 
-  | LE  -> 12 
-  | LT  -> 13 
-  | GT  -> 14 
-  | NEQ  -> 15 
-  | COMMA  -> 16 
-  | COLON  -> 17 
-  | SEMI  -> 18 
-  | BAR  -> 19 
-  | TO  -> 20 
-  | IF  -> 21 
-  | FI  -> 22 
-  | DO  -> 23 
-  | OD  -> 24 
-  | BEGIN  -> 25 
-  | END  -> 26 
-  | LP  -> 27 
-  | LCP  -> 28 
-  | LSP  -> 29 
-  | RP  -> 30 
-  | RCP  -> 31 
-  | RSP  -> 32 
-  | ITYP  -> 33 
-  | BTYP  -> 34 
-  | NAME _ -> 35 
-  | STRING _ -> 36 
-  | BOOL _ -> 37 
-  | INT _ -> 38 
+  | HIGH  -> 0
+  | EOF  -> 1
+  | PRINT  -> 2
+  | ASG  -> 3
+  | SKIP  -> 4
+  | ABORT  -> 5
+  | NEG  -> 6
+  | PLUS  -> 7
+  | MINUS  -> 8
+  | TIMES  -> 9
+  | AND  -> 10
+  | EQ  -> 11
+  | LE  -> 12
+  | LT  -> 13
+  | GT  -> 14
+  | NEQ  -> 15
+  | COMMA  -> 16
+  | COLON  -> 17
+  | SEMI  -> 18
+  | BAR  -> 19
+  | TO  -> 20
+  | IF  -> 21
+  | FI  -> 22
+  | DO  -> 23
+  | OD  -> 24
+  | BEGIN  -> 25
+  | END  -> 26
+  | LP  -> 27
+  | LCP  -> 28
+  | LSP  -> 29
+  | RP  -> 30
+  | RCP  -> 31
+  | RSP  -> 32
+  | ITYP  -> 33
+  | BTYP  -> 34
+  | NAME _ -> 35
+  | STRING _ -> 36
+  | BOOL _ -> 37
+  | INT _ -> 38
 
 // This function maps integers indexes to symbolic token ids
-let tokenTagToTokenId (tokenIdx:int) = 
+let tokenTagToTokenId (tokenIdx:int) =
   match tokenIdx with
-  | 0 -> TOKEN_HIGH 
-  | 1 -> TOKEN_EOF 
-  | 2 -> TOKEN_PRINT 
-  | 3 -> TOKEN_ASG 
-  | 4 -> TOKEN_SKIP 
-  | 5 -> TOKEN_ABORT 
-  | 6 -> TOKEN_NEG 
-  | 7 -> TOKEN_PLUS 
-  | 8 -> TOKEN_MINUS 
-  | 9 -> TOKEN_TIMES 
-  | 10 -> TOKEN_AND 
-  | 11 -> TOKEN_EQ 
-  | 12 -> TOKEN_LE 
-  | 13 -> TOKEN_LT 
-  | 14 -> TOKEN_GT 
-  | 15 -> TOKEN_NEQ 
-  | 16 -> TOKEN_COMMA 
-  | 17 -> TOKEN_COLON 
-  | 18 -> TOKEN_SEMI 
-  | 19 -> TOKEN_BAR 
-  | 20 -> TOKEN_TO 
-  | 21 -> TOKEN_IF 
-  | 22 -> TOKEN_FI 
-  | 23 -> TOKEN_DO 
-  | 24 -> TOKEN_OD 
-  | 25 -> TOKEN_BEGIN 
-  | 26 -> TOKEN_END 
-  | 27 -> TOKEN_LP 
-  | 28 -> TOKEN_LCP 
-  | 29 -> TOKEN_LSP 
-  | 30 -> TOKEN_RP 
-  | 31 -> TOKEN_RCP 
-  | 32 -> TOKEN_RSP 
-  | 33 -> TOKEN_ITYP 
-  | 34 -> TOKEN_BTYP 
-  | 35 -> TOKEN_NAME 
-  | 36 -> TOKEN_STRING 
-  | 37 -> TOKEN_BOOL 
-  | 38 -> TOKEN_INT 
+  | 0 -> TOKEN_HIGH
+  | 1 -> TOKEN_EOF
+  | 2 -> TOKEN_PRINT
+  | 3 -> TOKEN_ASG
+  | 4 -> TOKEN_SKIP
+  | 5 -> TOKEN_ABORT
+  | 6 -> TOKEN_NEG
+  | 7 -> TOKEN_PLUS
+  | 8 -> TOKEN_MINUS
+  | 9 -> TOKEN_TIMES
+  | 10 -> TOKEN_AND
+  | 11 -> TOKEN_EQ
+  | 12 -> TOKEN_LE
+  | 13 -> TOKEN_LT
+  | 14 -> TOKEN_GT
+  | 15 -> TOKEN_NEQ
+  | 16 -> TOKEN_COMMA
+  | 17 -> TOKEN_COLON
+  | 18 -> TOKEN_SEMI
+  | 19 -> TOKEN_BAR
+  | 20 -> TOKEN_TO
+  | 21 -> TOKEN_IF
+  | 22 -> TOKEN_FI
+  | 23 -> TOKEN_DO
+  | 24 -> TOKEN_OD
+  | 25 -> TOKEN_BEGIN
+  | 26 -> TOKEN_END
+  | 27 -> TOKEN_LP
+  | 28 -> TOKEN_LCP
+  | 29 -> TOKEN_LSP
+  | 30 -> TOKEN_RP
+  | 31 -> TOKEN_RCP
+  | 32 -> TOKEN_RSP
+  | 33 -> TOKEN_ITYP
+  | 34 -> TOKEN_BTYP
+  | 35 -> TOKEN_NAME
+  | 36 -> TOKEN_STRING
+  | 37 -> TOKEN_BOOL
+  | 38 -> TOKEN_INT
   | 41 -> TOKEN_end_of_input
   | 39 -> TOKEN_error
   | _ -> failwith "tokenTagToTokenId: bad token"
 
 /// This function maps production indexes returned in syntax errors to strings representing the non terminal that would be produced by that production
-let prodIdxToNonTerminal (prodIdx:int) = 
+let prodIdxToNonTerminal (prodIdx:int) =
   match prodIdx with
-    | 0 -> NONTERM__startMain 
-    | 1 -> NONTERM__startProg 
-    | 2 -> NONTERM_Main 
-    | 3 -> NONTERM_Prog 
-    | 4 -> NONTERM_Prog 
-    | 5 -> NONTERM_BasicTyp 
-    | 6 -> NONTERM_BasicTyp 
-    | 7 -> NONTERM_Typ 
-    | 8 -> NONTERM_Dec 
-    | 9 -> NONTERM_DecL 
-    | 10 -> NONTERM_DecL 
-    | 11 -> NONTERM_DecList 
-    | 12 -> NONTERM_DecList 
-    | 13 -> NONTERM_Access 
-    | 14 -> NONTERM_Stm 
-    | 15 -> NONTERM_Stm 
-    | 16 -> NONTERM_Stm 
-    | 17 -> NONTERM_Stm 
-    | 18 -> NONTERM_Stm 
-    | 19 -> NONTERM_Stm 
-    | 20 -> NONTERM_Stm 
-    | 21 -> NONTERM_StmL 
-    | 22 -> NONTERM_StmL 
-    | 23 -> NONTERM_StmList 
-    | 24 -> NONTERM_StmList 
-    | 25 -> NONTERM_GuardedCommand 
-    | 26 -> NONTERM_GuardedCommand 
-    | 27 -> NONTERM_GCList 
-    | 28 -> NONTERM_GCList 
-    | 29 -> NONTERM_Exp 
-    | 30 -> NONTERM_Exp 
-    | 31 -> NONTERM_Exp 
-    | 32 -> NONTERM_Exp 
-    | 33 -> NONTERM_Exp 
-    | 34 -> NONTERM_Exp 
-    | 35 -> NONTERM_Exp 
-    | 36 -> NONTERM_Exp 
-    | 37 -> NONTERM_Exp 
-    | 38 -> NONTERM_Exp 
-    | 39 -> NONTERM_Exp 
-    | 40 -> NONTERM_Exp 
-    | 41 -> NONTERM_Exp 
-    | 42 -> NONTERM_Exp 
-    | 43 -> NONTERM_Exp 
+    | 0 -> NONTERM__startMain
+    | 1 -> NONTERM__startProg
+    | 2 -> NONTERM_Main
+    | 3 -> NONTERM_Prog
+    | 4 -> NONTERM_Prog
+    | 5 -> NONTERM_BasicTyp
+    | 6 -> NONTERM_BasicTyp
+    | 7 -> NONTERM_Typ
+    | 8 -> NONTERM_Dec
+    | 9 -> NONTERM_DecL
+    | 10 -> NONTERM_DecL
+    | 11 -> NONTERM_DecList
+    | 12 -> NONTERM_DecList
+    | 13 -> NONTERM_Access
+    | 14 -> NONTERM_Stm
+    | 15 -> NONTERM_Stm
+    | 16 -> NONTERM_Stm
+    | 17 -> NONTERM_Stm
+    | 18 -> NONTERM_Stm
+    | 19 -> NONTERM_Stm
+    | 20 -> NONTERM_Stm
+    | 21 -> NONTERM_StmL
+    | 22 -> NONTERM_StmL
+    | 23 -> NONTERM_StmList
+    | 24 -> NONTERM_StmList
+    | 25 -> NONTERM_GuardedCommand
+    | 26 -> NONTERM_GuardedCommand
+    | 27 -> NONTERM_GCList
+    | 28 -> NONTERM_GCList
+    | 29 -> NONTERM_Exp
+    | 30 -> NONTERM_Exp
+    | 31 -> NONTERM_Exp
+    | 32 -> NONTERM_Exp
+    | 33 -> NONTERM_Exp
+    | 34 -> NONTERM_Exp
+    | 35 -> NONTERM_Exp
+    | 36 -> NONTERM_Exp
+    | 37 -> NONTERM_Exp
+    | 38 -> NONTERM_Exp
+    | 39 -> NONTERM_Exp
+    | 40 -> NONTERM_Exp
+    | 41 -> NONTERM_Exp
+    | 42 -> NONTERM_Exp
+    | 43 -> NONTERM_Exp
     | _ -> failwith "prodIdxToNonTerminal: bad production index"
 
-let _fsyacc_endOfInputTag = 41 
+let _fsyacc_endOfInputTag = 41
 let _fsyacc_tagOfErrorTerminal = 39
 
 // This function gets the name of a token as a string
-let token_to_string (t:token) = 
-  match t with 
-  | HIGH  -> "HIGH" 
-  | EOF  -> "EOF" 
-  | PRINT  -> "PRINT" 
-  | ASG  -> "ASG" 
-  | SKIP  -> "SKIP" 
-  | ABORT  -> "ABORT" 
-  | NEG  -> "NEG" 
-  | PLUS  -> "PLUS" 
-  | MINUS  -> "MINUS" 
-  | TIMES  -> "TIMES" 
-  | AND  -> "AND" 
-  | EQ  -> "EQ" 
-  | LE  -> "LE" 
-  | LT  -> "LT" 
-  | GT  -> "GT" 
-  | NEQ  -> "NEQ" 
-  | COMMA  -> "COMMA" 
-  | COLON  -> "COLON" 
-  | SEMI  -> "SEMI" 
-  | BAR  -> "BAR" 
-  | TO  -> "TO" 
-  | IF  -> "IF" 
-  | FI  -> "FI" 
-  | DO  -> "DO" 
-  | OD  -> "OD" 
-  | BEGIN  -> "BEGIN" 
-  | END  -> "END" 
-  | LP  -> "LP" 
-  | LCP  -> "LCP" 
-  | LSP  -> "LSP" 
-  | RP  -> "RP" 
-  | RCP  -> "RCP" 
-  | RSP  -> "RSP" 
-  | ITYP  -> "ITYP" 
-  | BTYP  -> "BTYP" 
-  | NAME _ -> "NAME" 
-  | STRING _ -> "STRING" 
-  | BOOL _ -> "BOOL" 
-  | INT _ -> "INT" 
+let token_to_string (t:token) =
+  match t with
+  | HIGH  -> "HIGH"
+  | EOF  -> "EOF"
+  | PRINT  -> "PRINT"
+  | ASG  -> "ASG"
+  | SKIP  -> "SKIP"
+  | ABORT  -> "ABORT"
+  | NEG  -> "NEG"
+  | PLUS  -> "PLUS"
+  | MINUS  -> "MINUS"
+  | TIMES  -> "TIMES"
+  | AND  -> "AND"
+  | EQ  -> "EQ"
+  | LE  -> "LE"
+  | LT  -> "LT"
+  | GT  -> "GT"
+  | NEQ  -> "NEQ"
+  | COMMA  -> "COMMA"
+  | COLON  -> "COLON"
+  | SEMI  -> "SEMI"
+  | BAR  -> "BAR"
+  | TO  -> "TO"
+  | IF  -> "IF"
+  | FI  -> "FI"
+  | DO  -> "DO"
+  | OD  -> "OD"
+  | BEGIN  -> "BEGIN"
+  | END  -> "END"
+  | LP  -> "LP"
+  | LCP  -> "LCP"
+  | LSP  -> "LSP"
+  | RP  -> "RP"
+  | RCP  -> "RCP"
+  | RSP  -> "RSP"
+  | ITYP  -> "ITYP"
+  | BTYP  -> "BTYP"
+  | NAME _ -> "NAME"
+  | STRING _ -> "STRING"
+  | BOOL _ -> "BOOL"
+  | INT _ -> "INT"
 
 // This function gets the data carried by a token as an object
-let _fsyacc_dataOfToken (t:token) = 
-  match t with 
-  | HIGH  -> (null : System.Object) 
-  | EOF  -> (null : System.Object) 
-  | PRINT  -> (null : System.Object) 
-  | ASG  -> (null : System.Object) 
-  | SKIP  -> (null : System.Object) 
-  | ABORT  -> (null : System.Object) 
-  | NEG  -> (null : System.Object) 
-  | PLUS  -> (null : System.Object) 
-  | MINUS  -> (null : System.Object) 
-  | TIMES  -> (null : System.Object) 
-  | AND  -> (null : System.Object) 
-  | EQ  -> (null : System.Object) 
-  | LE  -> (null : System.Object) 
-  | LT  -> (null : System.Object) 
-  | GT  -> (null : System.Object) 
-  | NEQ  -> (null : System.Object) 
-  | COMMA  -> (null : System.Object) 
-  | COLON  -> (null : System.Object) 
-  | SEMI  -> (null : System.Object) 
-  | BAR  -> (null : System.Object) 
-  | TO  -> (null : System.Object) 
-  | IF  -> (null : System.Object) 
-  | FI  -> (null : System.Object) 
-  | DO  -> (null : System.Object) 
-  | OD  -> (null : System.Object) 
-  | BEGIN  -> (null : System.Object) 
-  | END  -> (null : System.Object) 
-  | LP  -> (null : System.Object) 
-  | LCP  -> (null : System.Object) 
-  | LSP  -> (null : System.Object) 
-  | RP  -> (null : System.Object) 
-  | RCP  -> (null : System.Object) 
-  | RSP  -> (null : System.Object) 
-  | ITYP  -> (null : System.Object) 
-  | BTYP  -> (null : System.Object) 
-  | NAME _fsyacc_x -> Microsoft.FSharp.Core.Operators.box _fsyacc_x 
-  | STRING _fsyacc_x -> Microsoft.FSharp.Core.Operators.box _fsyacc_x 
-  | BOOL _fsyacc_x -> Microsoft.FSharp.Core.Operators.box _fsyacc_x 
-  | INT _fsyacc_x -> Microsoft.FSharp.Core.Operators.box _fsyacc_x 
+let _fsyacc_dataOfToken (t:token) =
+  match t with
+  | HIGH  -> (null : System.Object)
+  | EOF  -> (null : System.Object)
+  | PRINT  -> (null : System.Object)
+  | ASG  -> (null : System.Object)
+  | SKIP  -> (null : System.Object)
+  | ABORT  -> (null : System.Object)
+  | NEG  -> (null : System.Object)
+  | PLUS  -> (null : System.Object)
+  | MINUS  -> (null : System.Object)
+  | TIMES  -> (null : System.Object)
+  | AND  -> (null : System.Object)
+  | EQ  -> (null : System.Object)
+  | LE  -> (null : System.Object)
+  | LT  -> (null : System.Object)
+  | GT  -> (null : System.Object)
+  | NEQ  -> (null : System.Object)
+  | COMMA  -> (null : System.Object)
+  | COLON  -> (null : System.Object)
+  | SEMI  -> (null : System.Object)
+  | BAR  -> (null : System.Object)
+  | TO  -> (null : System.Object)
+  | IF  -> (null : System.Object)
+  | FI  -> (null : System.Object)
+  | DO  -> (null : System.Object)
+  | OD  -> (null : System.Object)
+  | BEGIN  -> (null : System.Object)
+  | END  -> (null : System.Object)
+  | LP  -> (null : System.Object)
+  | LCP  -> (null : System.Object)
+  | LSP  -> (null : System.Object)
+  | RP  -> (null : System.Object)
+  | RCP  -> (null : System.Object)
+  | RSP  -> (null : System.Object)
+  | ITYP  -> (null : System.Object)
+  | BTYP  -> (null : System.Object)
+  | NAME _fsyacc_x -> Microsoft.FSharp.Core.Operators.box _fsyacc_x
+  | STRING _fsyacc_x -> Microsoft.FSharp.Core.Operators.box _fsyacc_x
+  | BOOL _fsyacc_x -> Microsoft.FSharp.Core.Operators.box _fsyacc_x
+  | INT _fsyacc_x -> Microsoft.FSharp.Core.Operators.box _fsyacc_x
 let _fsyacc_gotos = [| 0us; 65535us; 0us; 65535us; 1us; 65535us; 0us; 1us; 2us; 65535us; 0us; 4us; 2us; 3us; 1us; 65535us; 18us; 15us; 1us; 65535us; 18us; 19us; 2us; 65535us; 6us; 20us; 21us; 20us; 0us; 65535us; 2us; 65535us; 6us; 7us; 21us; 22us; 22us; 65535us; 6us; 26us; 8us; 26us; 24us; 50us; 27us; 50us; 31us; 26us; 34us; 50us; 37us; 50us; 42us; 26us; 46us; 26us; 48us; 50us; 53us; 50us; 56us; 50us; 58us; 50us; 69us; 50us; 70us; 50us; 71us; 50us; 72us; 50us; 73us; 50us; 74us; 50us; 75us; 50us; 76us; 50us; 77us; 50us; 5us; 65535us; 6us; 41us; 8us; 41us; 31us; 41us; 42us; 41us; 46us; 41us; 4us; 65535us; 6us; 11us; 8us; 9us; 31us; 32us; 46us; 47us; 5us; 65535us; 6us; 40us; 8us; 40us; 31us; 40us; 42us; 43us; 46us; 40us; 2us; 65535us; 34us; 35us; 37us; 38us; 3us; 65535us; 34us; 44us; 37us; 44us; 48us; 49us; 17us; 65535us; 24us; 25us; 27us; 28us; 34us; 45us; 37us; 45us; 48us; 45us; 53us; 54us; 56us; 57us; 58us; 59us; 69us; 60us; 70us; 61us; 71us; 62us; 72us; 63us; 73us; 64us; 74us; 65us; 75us; 66us; 76us; 67us; 77us; 68us; |]
 let _fsyacc_sparseGotoTableRowOffsets = [|0us; 1us; 2us; 4us; 7us; 9us; 11us; 14us; 15us; 18us; 41us; 47us; 52us; 58us; 61us; 65us; |]
 let _fsyacc_stateToProdIdxsTableElements = [| 1us; 0us; 1us; 0us; 1us; 1us; 1us; 1us; 1us; 2us; 1us; 2us; 2us; 3us; 4us; 1us; 3us; 1us; 3us; 1us; 3us; 1us; 3us; 1us; 4us; 1us; 4us; 1us; 5us; 1us; 6us; 1us; 7us; 1us; 8us; 2us; 8us; 13us; 1us; 8us; 1us; 8us; 2us; 11us; 12us; 1us; 12us; 1us; 12us; 1us; 13us; 1us; 14us; 10us; 14us; 35us; 36us; 37us; 38us; 39us; 40us; 41us; 42us; 43us; 1us; 15us; 1us; 15us; 10us; 15us; 35us; 36us; 37us; 38us; 39us; 40us; 41us; 42us; 43us; 1us; 16us; 1us; 17us; 1us; 18us; 1us; 18us; 1us; 18us; 1us; 19us; 1us; 19us; 1us; 19us; 1us; 20us; 1us; 20us; 1us; 20us; 1us; 22us; 2us; 23us; 24us; 1us; 24us; 1us; 24us; 1us; 26us; 11us; 27us; 28us; 35us; 36us; 37us; 38us; 39us; 40us; 41us; 42us; 43us; 2us; 27us; 28us; 2us; 27us; 28us; 1us; 28us; 1us; 28us; 1us; 29us; 1us; 30us; 1us; 31us; 1us; 32us; 10us; 32us; 35us; 36us; 37us; 38us; 39us; 40us; 41us; 42us; 43us; 1us; 32us; 1us; 33us; 10us; 33us; 35us; 36us; 37us; 38us; 39us; 40us; 41us; 42us; 43us; 1us; 34us; 10us; 34us; 35us; 36us; 37us; 38us; 39us; 40us; 41us; 42us; 43us; 10us; 35us; 35us; 36us; 37us; 38us; 39us; 40us; 41us; 42us; 43us; 10us; 35us; 36us; 36us; 37us; 38us; 39us; 40us; 41us; 42us; 43us; 10us; 35us; 36us; 37us; 37us; 38us; 39us; 40us; 41us; 42us; 43us; 10us; 35us; 36us; 37us; 38us; 38us; 39us; 40us; 41us; 42us; 43us; 10us; 35us; 36us; 37us; 38us; 39us; 39us; 40us; 41us; 42us; 43us; 10us; 35us; 36us; 37us; 38us; 39us; 40us; 40us; 41us; 42us; 43us; 10us; 35us; 36us; 37us; 38us; 39us; 40us; 41us; 41us; 42us; 43us; 10us; 35us; 36us; 37us; 38us; 39us; 40us; 41us; 42us; 42us; 43us; 10us; 35us; 36us; 37us; 38us; 39us; 40us; 41us; 42us; 43us; 43us; 1us; 35us; 1us; 36us; 1us; 37us; 1us; 38us; 1us; 39us; 1us; 40us; 1us; 41us; 1us; 42us; 1us; 43us; |]
@@ -347,7 +347,7 @@ let _fsyacc_actionTableRowOffsets = [|0us; 2us; 3us; 5us; 6us; 8us; 9us; 17us; 1
 let _fsyacc_reductionSymbolCounts = [|1us; 1us; 2us; 5us; 3us; 1us; 1us; 1us; 3us; 0us; 1us; 1us; 3us; 1us; 2us; 3us; 1us; 1us; 3us; 3us; 3us; 0us; 1us; 1us; 3us; 0us; 1us; 3us; 5us; 1us; 1us; 1us; 3us; 2us; 2us; 3us; 3us; 3us; 3us; 3us; 3us; 3us; 3us; 3us; |]
 let _fsyacc_productionToNonTerminalTable = [|0us; 1us; 2us; 3us; 3us; 4us; 4us; 5us; 6us; 7us; 7us; 8us; 8us; 9us; 10us; 10us; 10us; 10us; 10us; 10us; 10us; 11us; 11us; 12us; 12us; 13us; 13us; 14us; 14us; 15us; 15us; 15us; 15us; 15us; 15us; 15us; 15us; 15us; 15us; 15us; 15us; 15us; 15us; 15us; |]
 let _fsyacc_immediateActions = [|65535us; 49152us; 65535us; 49152us; 65535us; 16386us; 65535us; 65535us; 65535us; 65535us; 16387us; 65535us; 16388us; 16389us; 16390us; 16391us; 65535us; 65535us; 65535us; 16392us; 65535us; 65535us; 16396us; 16397us; 65535us; 65535us; 65535us; 65535us; 65535us; 16400us; 16401us; 65535us; 65535us; 16402us; 65535us; 65535us; 16403us; 65535us; 65535us; 16404us; 16406us; 65535us; 65535us; 16408us; 16410us; 65535us; 65535us; 65535us; 65535us; 16412us; 16413us; 16414us; 16415us; 65535us; 65535us; 16416us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; |]
-let _fsyacc_reductions ()  =    [| 
+let _fsyacc_reductions ()  =    [|
 # 351 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Program)) in
@@ -373,7 +373,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 38 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                              _1 
+                                                              _1
                    )
 # 38 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Program));
@@ -385,7 +385,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 41 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                              P(_2, _4) 
+                                                              P(_2, _4)
                    )
 # 41 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Program));
@@ -396,7 +396,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 42 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                              P([], _2) 
+                                                              P([], _2)
                    )
 # 42 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Program));
@@ -406,7 +406,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 45 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             BTyp 
+                                                             BTyp
                    )
 # 45 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Typ));
@@ -416,7 +416,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 46 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             ITyp 
+                                                             ITyp
                    )
 # 46 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Typ));
@@ -427,7 +427,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 49 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             _1 
+                                                             _1
                    )
 # 49 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Typ));
@@ -439,7 +439,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 52 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             VarDec(_3,_1) 
+                                                             VarDec(_3,_1)
                    )
 # 52 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Dec));
@@ -449,7 +449,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 55 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             [] 
+                                                             []
                    )
 # 55 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Dec list));
@@ -460,7 +460,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 56 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             _1 
+                                                             _1
                    )
 # 56 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Dec list));
@@ -471,7 +471,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 59 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             [_1] 
+                                                             [_1]
                    )
 # 59 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Dec list));
@@ -483,7 +483,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 60 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             _1 :: _3 
+                                                             _1 :: _3
                    )
 # 60 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Dec list));
@@ -494,7 +494,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 63 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             AVar _1 
+                                                             AVar _1
                    )
 # 63 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Access));
@@ -505,7 +505,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 66 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             PrintLn _2 
+                                                             PrintLn _2
                    )
 # 66 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
@@ -517,7 +517,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 67 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             Ass(_1,_3)  
+                                                             Ass(_1,_3)
                    )
 # 67 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
@@ -527,7 +527,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 68 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             Do (GC []) 
+                                                             Do (GC [])
                    )
 # 68 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
@@ -537,7 +537,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 69 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             Alt (GC []) 
+                                                             Alt (GC [])
                    )
 # 69 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
@@ -548,7 +548,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 70 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             Block([], _2) 
+                                                             Block([], _2)
                    )
 # 70 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
@@ -559,7 +559,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 71 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             Alt _2 
+                                                             Alt _2
                    )
 # 71 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
@@ -570,7 +570,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 72 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             Do _2  
+                                                             Do _2
                    )
 # 72 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
@@ -580,7 +580,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 75 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             [] 
+                                                             []
                    )
 # 75 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm list));
@@ -591,7 +591,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 76 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             _1 
+                                                             _1
                    )
 # 76 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm list));
@@ -602,7 +602,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 79 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             [_1] 
+                                                             [_1]
                    )
 # 79 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm list));
@@ -614,7 +614,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 80 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             _1 :: _3 
+                                                             _1 :: _3
                    )
 # 80 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm list));
@@ -624,7 +624,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 83 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             GC [] 
+                                                             GC []
                    )
 # 83 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : GuardedCommand));
@@ -635,7 +635,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 84 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             GC _1 
+                                                             GC _1
                    )
 # 84 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : GuardedCommand));
@@ -647,7 +647,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 87 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             [(_1,_3)]   
+                                                             [(_1,_3)]
                    )
 # 87 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : (Exp * Stm list) list));
@@ -660,7 +660,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 88 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                         (_1,_3)::_5 
+                                                         (_1,_3)::_5
                    )
 # 88 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : (Exp * Stm list) list));
@@ -671,7 +671,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 91 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             Access _1 
+                                                             Access _1
                    )
 # 91 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
@@ -682,7 +682,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 92 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             N _1 
+                                                             N _1
                    )
 # 92 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
@@ -693,7 +693,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 93 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             B _1 
+                                                             B _1
                    )
 # 93 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
@@ -704,7 +704,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 94 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
-                                                             _2 
+                                                             _2
                    )
 # 94 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
@@ -840,11 +840,11 @@ let _fsyacc_reductions ()  =    [|
                  : Exp));
 |]
 # 842 "C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\Parser.fs"
-let tables () : Microsoft.FSharp.Text.Parsing.Tables<_> = 
+let tables () : Microsoft.FSharp.Text.Parsing.Tables<_> =
   { reductions= _fsyacc_reductions ();
     endOfInputTag = _fsyacc_endOfInputTag;
     tagOfToken = tagOfToken;
-    dataOfToken = _fsyacc_dataOfToken; 
+    dataOfToken = _fsyacc_dataOfToken;
     actionTableElements = _fsyacc_actionTableElements;
     actionTableRowOffsets = _fsyacc_actionTableRowOffsets;
     stateToProdIdxsTableElements = _fsyacc_stateToProdIdxsTableElements;
@@ -854,8 +854,8 @@ let tables () : Microsoft.FSharp.Text.Parsing.Tables<_> =
     gotos = _fsyacc_gotos;
     sparseGotoTableRowOffsets = _fsyacc_sparseGotoTableRowOffsets;
     tagOfErrorTerminal = _fsyacc_tagOfErrorTerminal;
-    parseError = (fun (ctxt:Microsoft.FSharp.Text.Parsing.ParseErrorContext<_>) -> 
-                              match parse_error_rich with 
+    parseError = (fun (ctxt:Microsoft.FSharp.Text.Parsing.ParseErrorContext<_>) ->
+                              match parse_error_rich with
                               | Some f -> f ctxt
                               | None -> parse_error ctxt.Message);
     numTerminals = 42;

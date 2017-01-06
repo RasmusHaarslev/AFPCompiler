@@ -5,22 +5,22 @@ open System.Text
 open Parser
 open Microsoft.FSharp.Text.Lexing
 
-let keyword s = 
+let keyword s =
     match s with
     | "bool"      -> BTYP
     | "int"       -> ITYP
-    | "print"     -> PRINT 
+    | "print"     -> PRINT
     | "skip"      -> SKIP
     | "abort"     -> ABORT
     | "begin"     -> BEGIN
-    | "end"       -> END 
-    | "if"        -> IF 
-    | "fi"        -> FI 
+    | "end"       -> END
+    | "if"        -> IF
+    | "fi"        -> FI
     | "do"        -> DO
-    | "od"        -> OD     
-    | "true"      -> BOOL(true) 
+    | "od"        -> OD
+    | "true"      -> BOOL(true)
     | "false"     -> BOOL(false)
-    | _           -> NAME s  
+    | _           -> NAME s
 }
 
 // These are some regular expression definitions
@@ -34,18 +34,18 @@ let quote                 = '\"'
 let StringConst           = quote ([^'\"'])* quote
 
 
-rule tokenize = 
+rule tokenize =
   parse
   | whitespace  { tokenize lexbuf }
   | newline     { lexbuf.EndPos <- lexbuf.EndPos.NextLine; tokenize lexbuf }
   | int         { INT<| Int32.Parse(Encoding.UTF8.GetString(lexbuf.Lexeme)) }
-  | "("         { LP  } 
+  | "("         { LP  }
   | ")"         { RP  }
   | "["         { LSP }
   | "]"         { RSP }
   | "{"         { LCP }
   | "}"         { RCP }
-  | ","         { COMMA }         
+  | ","         { COMMA }
   | ";"         { SEMI  }
   | ":"         { COLON }
   | "|"         { BAR }
@@ -56,11 +56,10 @@ rule tokenize =
   | "<>"        { NEQ }
   | "<"         { LT }
   | ">"         { GT }
-  | "<="        { LE } 
+  | "<="        { LE }
   | "*"         { TIMES }
   | "-"         { MINUS }
   | "="         { EQ }
-  | "+"         { PLUS }   
+  | "+"         { PLUS }
   | identifier  { keyword(Encoding.UTF8.GetString(lexbuf.Lexeme)) }
   | eof         { EOF }
-

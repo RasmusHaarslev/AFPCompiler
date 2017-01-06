@@ -2,9 +2,9 @@
 
 // You must revise 4 pathes occurring in this file 
 // The first three are:
-#r @"C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\bin\Debug\FSharp.PowerPack.dll";;
-#r @"C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\bin\Debug\Machine.dll";
-#r @"C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\bin\Debug\\VirtualMachine.dll";
+#r @"bin/Debug/FSharp.PowerPack.dll";;
+#r @"bin/Debug/Machine.dll";
+#r @"bin/Debug/virtualMachine.dll";
 
 #load "AST.fs"
 #load "Parser.fs"
@@ -27,11 +27,11 @@ open Machine
 open VirtualMachine
 
 // You must revise this path
-System.IO.Directory.SetCurrentDirectory @"C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands";;
+//System.IO.Directory.SetCurrentDirectory @"C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands";;
 
 // The Ex0.gc example:
 
-let ex0Tree = parseFromFile "Ex0.gc";;
+let ex0Tree = parseFromFile "test_programs/Ex0.gc";;
 
 let _ = tcP ex0Tree;;
 
@@ -44,7 +44,7 @@ let _ = goTrace ex0Tree;;
 
 // Parsing of Ex1.gc
 
-let ex1Tree = parseFromFile "Ex1.gc";; 
+let ex1Tree = parseFromFile "test_programs/Ex1.gc";; 
 
 // -- is typechecked as follows:
 
@@ -61,18 +61,18 @@ let sameStack = go ex1Tree;;
 
 // "All in one" parse from file, type check, compile and run 
 
-let _ = exec "Ex1.gc";;
+let _ = exec "test_programs/Ex1.gc";;
 
-let _ = exec "Ex2.gc";;
+let _ = exec "test_programs/Ex2.gc";;
 
 // Test of programs covered by the fifth task using optimized compilation (Section 8.2):
-List.iter execOpt ["Ex1.gc"; "Ex2.gc"];;
+List.iter execOpt ["test_programs/Ex1.gc"; "test_programs/Ex2.gc"];;
 
 // All programs relating to the basic version can be parsed:
-let pts = List.map parseFromFile ["Ex1.gc"; "Ex2.gc";"Ex3.gc"; "Ex4.gc"; "Ex5.gc"; "Ex6.gc"; "Skip.gc"];;
+//let pts = List.map parseFromFile ["test_programs/Ex1.gc"; "test_programs/Ex2.gc";"test_programs/Ex3.gc"; "test_programs/Ex4.gc"; "test_programs/Ex5.gc"; "test_programs/Ex6.gc"; "test_programs/Skip.gc"];;
 
 // The parse tree for Ex3.gc
-List.nth pts 2;
+//List.nth pts 2;
 
 (*
 // Test of programs covered by the first task (Section 3.7):

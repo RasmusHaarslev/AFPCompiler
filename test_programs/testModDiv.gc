@@ -1,0 +1,10 @@
+begin
+	a: int, b: int,c: int;
+	a := 5;
+	b := 3;
+	print a % b = 2;
+  a := 2147483647;
+	b := 536870911;
+	print a / b;
+	skip
+end

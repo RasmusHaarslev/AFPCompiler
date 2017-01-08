@@ -28,7 +28,8 @@ open VirtualMachine
 
 printfn "Hallo"
 
-ignore(exec "test_programs/minFunc.gc")
+ignore(exec "test_programs/testBooleanOperators.gc")
+ignore(exec "test_programs/testModDiv.gc")
 
 // You must revise this path
 //System.IO.Directory.SetCurrentDirectory @"C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands";;

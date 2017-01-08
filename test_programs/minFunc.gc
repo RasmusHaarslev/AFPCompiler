@@ -2,5 +2,27 @@ begin
 	a: int, b: int,c: int;
 	a := 2;
 	b := 2;
-	print a <= b
+	print a >= b = true;
+	print a <= b = true;
+	a := 3;
+	b := 2;
+	print a >= b = true;
+	print a <= b = false;
+	a := 2;
+	b := 3;
+	print a >= b = false;
+	print a <= b = true;
+	a := -2;
+	b := -3;
+	print a >= b = true;
+	print a <= b = false;
+	a := -2;
+	b := -2;
+	print a >= b = true;
+	print a <= b = true;
+	a := -3;
+	b := -2;
+	print a >= b = false;
+	print a <= b = true;
+	skip
 end

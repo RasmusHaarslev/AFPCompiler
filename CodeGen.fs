@@ -45,7 +45,7 @@ module CodeGeneration =
                                           | "*"  -> [MUL]
                                           | "="  -> [EQ]
                                           | "<"  -> [LT]
-                                          | ">=" -> [LT;NOT] // Not implemented in parser yet I think.
+                                          | ">=" -> [LT;NOT] // Not implemented in parser yet I think. AND NOT TESTED.
                                           | "<=" -> [SUB; CSTI 1; LT] // Skal bruge input for at overbevise mig selv om korrektheden for dette. Er bange for edgecases.
                                           | "-"  -> [SUB]
                                           | _    -> failwith "CE: this case is not possible"

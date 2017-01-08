@@ -57,6 +57,7 @@ rule tokenize =
   | "<"         { LT }
   | ">"         { GT }
   | "<="        { LE }
+  | ">="        { GE }
   | "*"         { TIMES }
   | "-"         { MINUS }
   | "="         { EQ }

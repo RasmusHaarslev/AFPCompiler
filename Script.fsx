@@ -26,6 +26,10 @@ open CompilerUtil
 open Machine
 open VirtualMachine
 
+printfn "Hallo"
+
+ignore(exec "test_programs/minFunc.gc")
+
 // You must revise this path
 //System.IO.Directory.SetCurrentDirectory @"C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands";;
 
@@ -79,7 +83,7 @@ let sameStack = go ex1Tree;;
 //List.iter exec ["test_programs/Ex1.gc"; "test_programs/Ex2.gc";"test_programs/Ex3.gc"; "test_programs/Ex4.gc"; "test_programs/Ex5.gc"; "test_programs/Ex6.gc"; "test_programs/Skip.gc"];;
 
 // Test of programs covered by the second task (Section 4.3):
-List.iter exec ["test_programs/Ex7.gc"; "test_programs/fact.gc"; "test_programs/factRec.gc"; "test_programs/factCBV.gc"];;
+//List.iter exec ["test_programs/Ex7.gc"; "test_programs/fact.gc"; "test_programs/factRec.gc"; "test_programs/factCBV.gc"];;
 
 // Test of programs covered by the fourth task (Section 5.4):
 //List.iter exec ["test_programs/A0.gc"; "test_programs/A1.gc"; "test_programs/A2.gc"; "test_programs/A3.gc"];;

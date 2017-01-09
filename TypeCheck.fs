@@ -118,6 +118,7 @@ module TypeCheck =
 
                         match stm with
                             | Block([],stms) -> List.iter checkReturn stms
+                            | Return _ as k       -> checkReturn k
                             | _ -> failwith "illtyped stm in function"
 
 

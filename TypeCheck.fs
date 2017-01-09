@@ -65,7 +65,21 @@ module TypeCheck =
                                          | None   -> failwith ("no declaration for : " + x)
                                          | Some t -> t
                              | Some t -> t
-         | AIndex(acc, e) -> failwith "tcA: array indexing not supported yes"
+         | AIndex(acc, e) -> match acc with
+                            | AIndex _   -> failwith "Nested array not allowed."
+                            // I say pointers not implemented yet, but I'm not sure how exactly
+                            // pointers and arrays are going to work out.
+                            | ADeref _   -> failwith "Pointers not implemented yet."
+                            | AVar x     ->
+                              // Check if user is accessing with integer.
+                              if tcE gtenv ltenv e <> ITyp then
+                                failwith "Array indexing must be done with integer."
+                              // Do regular variable loop otherwise.
+                              match Map.tryFind x ltenv with
+                              | None   -> match Map.tryFind x gtenv with
+                                          | None   -> failwith ("no declaration for : " + x)
+                                          | Some t -> t
+                              | Some t -> t
          | ADeref e       -> failwith "tcA: pointer dereferencing not supported yes"
 
 

@@ -72,7 +72,22 @@ module CodeGeneration =
    and CA vEnv fEnv = function | AVar x         -> match Map.find x (fst vEnv) with
                                                    | (GloVar addr,_) -> [CSTI addr]
                                                    | (LocVar addr,_) -> failwith "CA: Local variables not supported yet"
-                               | AIndex(acc, e) -> failwith "CA: array indexing not supported yet"
+                               | AIndex(acc, e) ->
+                                   // Array indexing takes an "access" and an expression
+                                   // Not sure why, but I think it's because of pointers later.
+                                   match acc with
+                                     // We only allow the user to access arrays by referencing the array name
+                                     // Hence why we error on ADeref and AIndex.
+                                     | AVar x     ->
+                                         // We look up and see the array address
+                                         match Map.find x (fst vEnv) with
+                                           | (GloVar addr,_) ->
+                                              // To find the right position, we
+                                              // take the array stack position and add the index.
+                                              CE vEnv fEnv e @ [CSTI addr; ADD]
+                                           | (LocVar addr,_) -> failwith "CA: Local variables not supported yet"
+                                     | ADeref _   -> failwith "Pointers not implemented yet."
+                                     | AIndex _   -> failwith "Nested arrays detected I think."
                                | ADeref e       -> failwith "CA: pointer dereferencing not supported yet"
 
 

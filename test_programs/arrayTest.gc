@@ -1,6 +1,8 @@
 begin
   res : int[3],
   a   : int;
+  res[a] := 2;
+  res[1] := 1337;
   a := 1
 
 end

@@ -1,5 +1,5 @@
 begin
   a   : int,
-  res : int[a];
+  res : int[3];
   print 3
 end

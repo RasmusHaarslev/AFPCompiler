@@ -93,10 +93,6 @@ module TypeCheck =
    and tcGDec gtenv = function
                       | VarDec(t,s)               -> Map.add s t gtenv
                       | ArrDec(t,s,Some sizeExpr)      ->
-                        // Arrays must have an integer expression for size.
-                        if tcE gtenv Map.empty sizeExpr <> ITyp then
-                          failwith "Array size declaration must be integer"
-
                         Map.add s t gtenv
                       | ArrDec(t,s,None)        -> failwith "Arrays as function parameter not implemented yet."
                       | FunDec(Some t,f,decs,stm) ->

@@ -53,7 +53,7 @@ Dec:
     NAME COLON Typ                                { VarDec($3,$1) }
   | FUN NAME LP DecL RP COLON Typ EQ Stm          { FunDec(Some $7,$2,$4,$9) }
     // Array declaration.
-  | NAME COLON Typ LSP Exp RSP                    { ArrDec($3, $1, Some $5) }
+  | NAME COLON Typ LSP INT RSP                    { ArrDec($3, $1, Some $5) }
 
 DecL:
                                       { [] }

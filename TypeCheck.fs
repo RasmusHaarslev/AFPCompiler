@@ -20,6 +20,11 @@ module TypeCheck =
          | Apply(f,[e1;e2]) when List.exists (fun x ->  x=f) ["+"; "*"; "="; "&&"; "-"; "<"; ">"; ">=";"<=";"%";"/"]
                             -> tcDyadic gtenv ltenv f e1 e2
 
+         | Apply(f,es) ->
+              // procedures not checked here....
+              // bør heller ikke tjekkes her tror jeg
+              tcNaryFunction gtenv ltenv f es
+
          | x                -> failwith "tcE: not supported yet"
 
    and tcMonadic gtenv ltenv f e = match (f, tcE gtenv ltenv e) with
@@ -31,9 +36,22 @@ module TypeCheck =
                                       | (o, ITyp, ITyp) when List.exists (fun x ->  x=o) ["+";"*";"-";"%";"/"]  -> ITyp
                                       | (o, ITyp, ITyp) when List.exists (fun x ->  x=o) ["=";"<";">";">=";"<="] -> BTyp
                                       | (o, BTyp, BTyp) when List.exists (fun x ->  x=o) ["&&";"="]     -> BTyp
+
                                       | _                      -> failwith("illegal/illtyped dyadic expression: " + f)
 
-   and tcNaryFunction gtenv ltenv f es = failwith "type check: functions not supported yet"
+   and tcNaryFunction gtenv ltenv f es =
+        let r = match Map.tryFind f ltenv with
+                             | None   -> match Map.tryFind f gtenv with
+                                         | None   -> failwith ("no declaration for : " + f)
+                                         | Some t -> t
+                             | Some t -> t
+        match r with
+            | FTyp (rtList, Some t) ->
+                if rtList = (List.map (tcE gtenv ltenv) es) then
+                    t
+                else
+                    failwith "function call params does not match"
+            | _ -> failwith "error in function call"
 
    and tcNaryProcedure gtenv ltenv f es = failwith "type check: procedures not supported yet"
 
@@ -55,11 +73,16 @@ module TypeCheck =
 /// for global and local variables and the possible type of return expressions
    and tcS gtenv ltenv = function
                          | PrintLn e -> ignore(tcE gtenv ltenv e)
-                         | Ass(acc,e) -> if tcA gtenv ltenv acc = tcE gtenv ltenv e
+                         | Ass(acc,e) -> 
+                              if tcA gtenv ltenv acc = tcE gtenv ltenv e
                                          then ()
                                          else failwith "illtyped assignment"
 
                          | Block([],stms) -> List.iter (tcS gtenv ltenv) stms
+                         | Return (Some e) ->
+                              // ???
+                              tcE gtenv ltenv e |> ignore
+                              ()
 
                          | Alt (GC gc) | Do (GC gc) -> List.iter (tcGC gtenv ltenv) gc
                          | _              -> failwith "tcS: this statement is not supported yet"
@@ -69,7 +92,45 @@ module TypeCheck =
 
    and tcGDec gtenv = function
                       | VarDec(t,s)               -> Map.add s t gtenv
-                      | FunDec(topt,f, decs, stm) -> failwith "type check: function/procedure declarations not yet supported"
+                      | FunDec(Some t,f,decs,stm) ->
+                        let typList = (tcGDecs Map.empty decs |> Map.toList |> List.map snd)
+
+                        //check stm is well-typed
+                        tcS gtenv (Map.empty) stm
+
+                        // check returntype is correct...
+                        let checkReturn = function
+                          | Return (Some x) ->
+                              //should probabbly not be map.empty
+
+                              if tcE gtenv Map.empty x = t then
+                                  ()
+                              else
+                                  failwith "return type failure in function"
+                          | _ -> ()
+
+                        match stm with
+                            | Block([],stms) -> List.iter checkReturn stms
+                            | _ -> failwith "illtyped stm in function"
+
+
+                        // check parameter are all different
+                        let decToList = function
+                            | VarDec(_,s) -> s
+                            | FunDec(_, f, _, _) -> f
+                        
+                        let decsAsList = List.map decToList decs
+
+                        if List.distinct decsAsList = decsAsList then
+                            Map.add f (FTyp (typList, Some t)) gtenv
+
+                        else
+                            failwith "illtyped function declaration"
+
+
+                      | _ ->
+                        failwith "type check: function/procedure declarations not yet supported"
+
 
    and tcGDecs gtenv = function
                        | dec::decs -> tcGDecs (tcGDec gtenv dec) decs

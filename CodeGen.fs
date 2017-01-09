@@ -34,6 +34,8 @@ module CodeGeneration =
 
        | Apply("!", [e]) -> CE vEnv fEnv e @ [NOT]
 
+       // behøver den her sin egen case???
+       // er det noget med man gerne vil have så lidt maskine kode som muligt?
        | Apply("&&",[b1;b2]) -> let labend   = newLabel()
                                 let labfalse = newLabel()
                                 CE vEnv fEnv b1 @ [IFZERO labfalse] @ CE vEnv fEnv b2
@@ -52,6 +54,16 @@ module CodeGeneration =
                                           | "-"  -> [SUB]
                                           | _    -> failwith "CE: this case is not possible"
                                 CE vEnv fEnv e1 @ CE vEnv fEnv e2 @ ins
+
+       | Apply(o,[e1;e2]) when List.exists (fun x -> o=x) [">";"<="]
+                             -> let ins = match o with
+                                          | ">"  -> [LT]
+                                          | _    -> failwith "CE: this case is not possible"
+                                CE vEnv fEnv e2 @ CE vEnv fEnv e1 @ ins
+
+       | Apply(o,es) ->
+              CE vEnv fEnv (List.head es) 
+              //List.map (fun e -> CE vEnv fEnv e) es
 
        | _            -> failwith "CE: not supported yet"
 
@@ -128,7 +140,12 @@ module CodeGeneration =
              | VarDec (typ, var) -> let (vEnv1, code1) = allocate GloVar (typ, var) vEnv
                                     let (vEnv2, fEnv2, code2) = addv decr vEnv1 fEnv
                                     (vEnv2, fEnv2, code1 @ code2)
-             | FunDec (tyOpt, f, xs, body) -> failwith "makeGlobalEnvs: function/procedure declarations not supported yet"
+             | FunDec (Some typ, f, xs, body) ->
+                                    let (vEnv1, code1) = allocate GloVar (typ, f) vEnv
+                                    let (vEnv2, fEnv2, code2) = addv decr vEnv1 fEnv
+                                    (vEnv2, fEnv2, code1 @ code2)
+             | _ ->
+             failwith "makeGlobalEnvs: function/procedure declarations not supported yet"
        addv decs (Map.empty, 0) Map.empty
 
 /// CP prog gives the code for a program prog

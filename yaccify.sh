@@ -1,2 +1,2 @@
 fslex Lexer.fsl
-fsyacc Parser.fsy 
+fsyacc Parser.fsy --module Parser

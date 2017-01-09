@@ -21,6 +21,7 @@ module AST =
           | AVar of string             (* Variable access        x    *)
           | AIndex of Access * Exp     (* Array indexing         a[e] *)
           | ADeref of Exp              (* Pointer dereferencing  p^   *)
+          | ARef of Exp                (* Variable address       &p   *)
 
    type Stm  =
           | PrintLn of Exp               (* Print                          *)

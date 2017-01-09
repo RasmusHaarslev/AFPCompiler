@@ -20,6 +20,8 @@ let keyword s =
     | "od"        -> OD
     | "true"      -> BOOL(true)
     | "false"     -> BOOL(false)
+    | "function"  -> FUN
+    | "return"    -> RETURN
     | _           -> NAME s
 }
 
@@ -65,6 +67,6 @@ rule tokenize =
   | "/"         { DIV }
   | "%"         { MOD }
   | "^"         { PNTR }
-  | "&"         { ADRS }
+  | "&"         { ADDR }
   | identifier  { keyword(Encoding.UTF8.GetString(lexbuf.Lexeme)) }
   | eof         { EOF }

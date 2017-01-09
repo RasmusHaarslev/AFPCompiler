@@ -139,7 +139,7 @@ module CodeGeneration =
 (* Build environments for global variables and functions *)
 
    let makeGlobalEnvs decs =
-       let rec addv decs vEnv (fEnv : funEnv) =
+       let rec addv decs (vEnv : varEnv) (fEnv : funEnv) =
            match decs with
            | []         -> (vEnv, fEnv, [])
            | dec::decr  ->
@@ -148,22 +148,24 @@ module CodeGeneration =
                                     let (vEnv2, fEnv2, code2) = addv decr vEnv1 fEnv
                                     (vEnv2, fEnv2, code1 @ code2)
              // We need to discuss this together. IMO do codegen together /Gustav.
-             | ArrDec (typ,var,exp) -> let (vEnv1,code1) = allocate GloVar (typ,var) vEnv
-                                       let (vEnv2, fEnv2, code2) = addv decr vEnv1 fEnv
-                                       (vEnv2, fEnv2, code1 @ code2)
              | FunDec (Some typ, f, xs, body) ->
-                    addv decr vEnv (Map.add f (newLabel(), Some typ,[]) fEnv)
-                   (*let labelf = newLabel()
-                    let (vEnv1, code1) = allocate GloVar (typ, f) vEnv
-                    let (vEnv2, fEnv2, code2) = addv decr vEnv1 (Map.add f (labelf, Some typ) fEnv)
-                   *)
-                     //(vEnv2, fEnv2, code1 @ code2 @ [Label labelf] @ (CS vEnv2 fEnv2 body))
-                    //addv decr vEnv (Map.add f (newLabel(), Some typ, xs) fEnv)
-                    (*
-                    let labelf = newLabel()
-                    let code addv decr vEnv Map.add f (newLabeel(), Some typ, xs) fEnv)
-                    [Label labelf] @ (CS vEnv fEnv body)
-                    *)
+                   (* The function environment maps function name to label and parameter decs
+
+                      type ParamDecs = (Typ * string) list
+                      type funEnv = Map<string, label * Typ option * ParamDecs> *)
+                    let tExtract d =
+                      match d with
+                        | FunDec _ -> failwith "Functions as parameters NOT supported."
+                        | VarDec (t,paraName)         -> (t,paraName)
+                        | ArrDec (t,paraName,_)         -> (t,paraName)
+                    let parList = List.map tExtract xs
+                    let funcLabel = newLabel()
+                    let newFEnv = Map.add f (funcLabel,Some typ,parList) fEnv
+                    let code = CS vEnv fEnv body
+                    printfn "Old Function Env: %A" fEnv
+                    printfn "New Function Env: %A" newFEnv
+                    printfn "%A" vEnv
+                    addv decr vEnv newFEnv
              | _ ->
              failwith "makeGlobalEnvs: function/procedure declarations not supported yet"
        addv decs (Map.empty, 0) Map.empty

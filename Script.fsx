@@ -26,11 +26,12 @@ open CompilerUtil
 open Machine
 open VirtualMachine
 
-printfn "Hallo"
-
 //ignore(exec "test_programs/testBooleanOperators.gc")
 //ignore(exec "test_programs/testModDiv.gc")
 ignore(exec "test_programs/functionTest.gc")
+
+//let ex1Tree = parseFromFile "test_programs/functionTest.gc"
+//ignore(tcP ex1Tree)
 // You must revise this path
 //System.IO.Directory.SetCurrentDirectory @"C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands";;
 

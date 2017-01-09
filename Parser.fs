@@ -506,7 +506,7 @@ let _fsyacc_reductions ()  =    [|
                 (
                    (
 # 56 "Parser.fsy"
-                                                                         ArrDec(_3, _1, Some _5) 
+                                                                         VarDec(ATyp (_3,Some _5), _1) 
                    )
 # 56 "Parser.fsy"
                  : Dec));

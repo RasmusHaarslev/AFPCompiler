@@ -1,5 +1,6 @@
 begin
-  a   : int,
-  res : int[3];
-  print 3
+  res : int[3],
+  a   : int;
+  a := 1
+
 end

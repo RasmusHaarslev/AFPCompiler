@@ -82,7 +82,11 @@ module CodeGeneration =
     match typ with
     | ATyp (ATyp _, _) ->
       raise (Failure "allocate: array of arrays not permitted")
-    | ATyp (t, Some i) -> failwith "allocate: array not supported yet"
+    | ATyp (t, Some i) ->
+      //  We initialize the array values to 0.
+      let newEnv = (Map.add x (kind fdepth, typ) env, fdepth+i)
+      let code = [INCSP i]
+      (newEnv, code)
     | _ ->
       let newEnv = (Map.add x (kind fdepth, typ) env, fdepth+1)
       let code = [INCSP 1]
@@ -141,9 +145,6 @@ module CodeGeneration =
                                     let (vEnv2, fEnv2, code2) = addv decr vEnv1 fEnv
                                     (vEnv2, fEnv2, code1 @ code2)
              // We need to discuss this together. IMO do codegen together /Gustav.
-             | ArrDec (typ,var,exp) -> let (vEnv1,code1) = allocate GloVar (typ,var) vEnv
-                                       let (vEnv2, fEnv2, code2) = addv decr vEnv1 fEnv
-                                       (vEnv2, fEnv2, code1 @ code2)
              | FunDec (Some typ, f, xs, body) ->
                                     let (vEnv1, code1) = allocate GloVar (typ, f) vEnv
                                     let (vEnv2, fEnv2, code2) = addv decr vEnv1 fEnv

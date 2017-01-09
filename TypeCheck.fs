@@ -91,10 +91,14 @@ module TypeCheck =
                                      then List.iter (tcS gtenv ltenv) stms
 
    and tcGDec gtenv = function
-                      | VarDec(t,s)               -> Map.add s t gtenv
-                      | ArrDec(t,s,Some sizeExpr)      ->
+                      // Array declaration.
+                      | VarDec(ATyp (t,Some i),s)               ->
+                        if i < 0 then
+                          failwith "Array size must be larger than 0."
                         Map.add s t gtenv
-                      | ArrDec(t,s,None)        -> failwith "Arrays as function parameter not implemented yet."
+                      // Array formal parameter.
+                      | VarDec(ATyp (t,None),s)               -> Map.add s t gtenv
+                      | VarDec(t,s)               -> Map.add s t gtenv
                       | FunDec(Some t,f,decs,stm) ->
                         let typList = (tcGDecs Map.empty decs |> Map.toList |> List.map snd)
 

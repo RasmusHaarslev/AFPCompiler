@@ -62,7 +62,7 @@ module CodeGeneration =
                                 CE vEnv fEnv e2 @ CE vEnv fEnv e1 @ ins
 
        | Apply(o,es) ->
-              CE vEnv fEnv (List.head es) 
+              CE vEnv fEnv (List.head es)
               //List.map (fun e -> CE vEnv fEnv e) es
 
        | _            -> failwith "CE: not supported yet"
@@ -140,6 +140,10 @@ module CodeGeneration =
              | VarDec (typ, var) -> let (vEnv1, code1) = allocate GloVar (typ, var) vEnv
                                     let (vEnv2, fEnv2, code2) = addv decr vEnv1 fEnv
                                     (vEnv2, fEnv2, code1 @ code2)
+             // We need to discuss this together. IMO do codegen together /Gustav.
+             | ArrDec (typ,var,exp) -> let (vEnv1,code1) = allocate GloVar (typ,var) vEnv
+                                       let (vEnv2, fEnv2, code2) = addv decr vEnv1 fEnv
+                                       (vEnv2, fEnv2, code1 @ code2)
              | FunDec (Some typ, f, xs, body) ->
                                     let (vEnv1, code1) = allocate GloVar (typ, f) vEnv
                                     let (vEnv2, fEnv2, code2) = addv decr vEnv1 fEnv

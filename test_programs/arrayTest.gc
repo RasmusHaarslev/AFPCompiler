@@ -1,0 +1,5 @@
+begin
+  a   : int,
+  res : int[a];
+  print 3
+end

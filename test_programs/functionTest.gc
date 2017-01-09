@@ -1,6 +1,7 @@
-begin
-   a: int,
-   function f(x: int, y: int): int = return 9,
-   b: int;
-   print 3
+begin 
+   x: int,
+   function f(x: int, y: int): int = { print x+3; print x+4; return x+5 }; 
+   x:= f(5, 7);
+   print x;
+   print x
 end

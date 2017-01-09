@@ -71,7 +71,7 @@ module CodeGeneration =
 /// CA vEnv fEnv acc gives the code for an access acc on the basis of a variable and a function environment
    and CA vEnv fEnv = function | AVar x         -> match Map.find x (fst vEnv) with
                                                    | (GloVar addr,_) -> [CSTI addr]
-                                                   | (LocVar addr,_) -> failwith "CA: Local variables not supported yet"
+                                                   | (LocVar addr,_) -> [GETBP; CSTI addr; ADD]
                                | AIndex(acc, e) ->
                                    // Array indexing takes an "access" and an expression
                                    // Not sure why, but I think it's because of pointers later.
@@ -128,10 +128,7 @@ module CodeGeneration =
        | Block([],stms)   -> CSs vEnv fEnv stms
 
        | Return (Some e) ->
-            printfn "%A" "inside return"
-            printfn "%A" vEnv
-            printfn "%A" fEnv
-            CE vEnv fEnv e @ [RET 2]
+            CE vEnv fEnv e @ [RET (snd vEnv)]
 
 
        | Alt (GC gc)      ->
@@ -178,22 +175,14 @@ module CodeGeneration =
                                     let (vEnv2, fEnv2, code2) = addv decr vEnv1 fEnv
                                     (vEnv2, fEnv2, code1 @ code2)
              // We need to discuss this together. IMO do codegen together /Gustav.
-             | FunDec (Some typ, f, xs, body) ->
-                   (* The function environment maps function name to label and parameter decs
-
-                      type ParamDecs = (Typ * string) list
-                      type funEnv = Map<string, label * Typ option * ParamDecs> *)
+             | FunDec (typ, f, xs, body) ->
                     let tExtract d =
                       match d with
                         | FunDec _ -> failwith "Functions as parameters NOT supported."
                         | VarDec (t,paraName)         -> (t,paraName)
                     let parList = List.map tExtract xs
                     let funcLabel = newLabel()
-                    let newFEnv = Map.add f (funcLabel,Some typ,parList) fEnv
-                    let code = CS vEnv fEnv body
-                    printfn "Old Function Env: %A" fEnv
-                    printfn "New Function Env: %A" newFEnv
-                    printfn "%A" vEnv
+                    let newFEnv = Map.add f (funcLabel,typ,parList) fEnv
                     addv decr vEnv newFEnv
              | _ ->
              failwith "makeGlobalEnvs: function/procedure declarations not supported yet"
@@ -205,17 +194,25 @@ module CodeGeneration =
        let ((gvM,_) as gvEnv, fEnv, initCode) = makeGlobalEnvs decs
 
        let compilefun (typ, f, xs, body) =
-            let (l, p,parName) = Map.find f fEnv
-            // let (envf, fdepthf) = bindParams p (globalVarEnv, 0)
-            [Label l] @ CS gvEnv fEnv body
+            let (l, _,paras) = Map.find f fEnv
 
-            //[Label labf] @ code @ [RET (List.length paras-1)]
+            let bindParam (env, fdepth) (typ, x)  : varEnv =
+                (Map.add x (LocVar fdepth, typ) env, fdepth+1)
+
+            let bindParams paras (env, fdepth) =
+                List.fold bindParam (env, fdepth) paras;
+
+            let (envf, fdepthf) = bindParams paras (gvM, 0)
+
+            let code = CS (envf, fdepthf) fEnv body
+
+            [Label l] @ code @ [RET (List.length paras-1)]
+
        let functions =
                 List.choose (function
-                         | FunDec (Some typ, f, xs, body)
+                         | FunDec (typ, f, xs, body)
                                     -> Some (compilefun (typ, f, xs, body))
                          | _ -> None) decs
 
-       printfn "fun %A" functions
        initCode @ CSs gvEnv fEnv stms @ [STOP]
        @ List.concat functions

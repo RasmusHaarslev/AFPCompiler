@@ -1,8 +1,7 @@
 ﻿
 begin 
    x: int,
-   function f(x: int, y: int): int = { print x+3; return x+5 }; 
-   x:= f(5, 7);
-   print x;
+   function f(y: int): int = return y+5;
+   x:= f(5);
    print x
 end

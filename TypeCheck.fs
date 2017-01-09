@@ -73,7 +73,7 @@ module TypeCheck =
 /// for global and local variables and the possible type of return expressions
    and tcS gtenv ltenv = function
                          | PrintLn e -> ignore(tcE gtenv ltenv e)
-                         | Ass(acc,e) -> 
+                         | Ass(acc,e) ->
                               if tcA gtenv ltenv acc = tcE gtenv ltenv e
                                          then ()
                                          else failwith "illtyped assignment"
@@ -92,6 +92,12 @@ module TypeCheck =
 
    and tcGDec gtenv = function
                       | VarDec(t,s)               -> Map.add s t gtenv
+                      | ArrDec(t,s,Some sizeExpr)      ->
+                        //
+                        if tcE gtenv Map.empty sizeExpr <> ITyp then
+                          failwith "Array size declaration must be integer"
+                        Map.add s t gtenv
+                      | ArrDec(t,s,None)        -> failwith "Arrays as function parameter not implemented yet."
                       | FunDec(Some t,f,decs,stm) ->
                         let typList = (tcGDecs Map.empty decs |> Map.toList |> List.map snd)
 
@@ -118,7 +124,7 @@ module TypeCheck =
                         let decToList = function
                             | VarDec(_,s) -> s
                             | FunDec(_, f, _, _) -> f
-                        
+
                         let decsAsList = List.map decToList decs
 
                         if List.distinct decsAsList = decsAsList then

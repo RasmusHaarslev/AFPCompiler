@@ -62,8 +62,8 @@ module CodeGeneration =
                                 CE vEnv fEnv e2 @ CE vEnv fEnv e1 @ ins
 
        | Apply(o,es) ->
-              CE vEnv fEnv (List.head es)
-              //List.map (fun e -> CE vEnv fEnv e) es
+              let (l, p) = Map.find o fEnv
+              List.collect (fun e -> CE vEnv fEnv e) es @ [CALL(List.length es, l)]
 
        | _            -> failwith "CE: not supported yet"
 
@@ -96,6 +96,12 @@ module CodeGeneration =
        | Ass(acc,e)       -> CA vEnv fEnv acc @ CE vEnv fEnv e @ [STI; INCSP -1]
 
        | Block([],stms)   -> CSs vEnv fEnv stms
+
+       | Return (Some e) ->
+            printfn "%A" vEnv
+            printfn "%A" fEnv
+            CE vEnv fEnv e @ [RET (snd vEnv)]
+
 
        | Alt (GC gc)      ->
             let labend = newLabel()
@@ -145,9 +151,19 @@ module CodeGeneration =
                                        let (vEnv2, fEnv2, code2) = addv decr vEnv1 fEnv
                                        (vEnv2, fEnv2, code1 @ code2)
              | FunDec (Some typ, f, xs, body) ->
-                                    let (vEnv1, code1) = allocate GloVar (typ, f) vEnv
-                                    let (vEnv2, fEnv2, code2) = addv decr vEnv1 fEnv
-                                    (vEnv2, fEnv2, code1 @ code2)
+                    let labelf = newLabel()
+                    let (vEnv1, code1) = allocate GloVar (typ, f) vEnv
+                    let (vEnv2, fEnv2, code2) = addv decr vEnv1 (Map.add f (labelf, Some typ) fEnv)
+                    (vEnv2, fEnv2, code1 @ code2 @ [Label labelf] @ (CS vEnv2 fEnv2 body))
+                    
+                    //addv decr vEnv (Map.add f (newLabel(), Some typ, xs) fEnv)
+                    (*
+                    let labelf = newLabel()
+                    let code addv decr vEnv Map.add f (newLabeel(), Some typ, xs) fEnv) 
+                    
+                    
+                    [Label labelf] @ (CS vEnv fEnv body)
+                    *)
              | _ ->
              failwith "makeGlobalEnvs: function/procedure declarations not supported yet"
        addv decs (Map.empty, 0) Map.empty

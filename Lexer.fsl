@@ -64,5 +64,7 @@ rule tokenize =
   | "+"         { PLUS }
   | "/"         { DIV }
   | "%"         { MOD }
+  | "^"         { PNTR }
+  | "&"         { ADRS }
   | identifier  { keyword(Encoding.UTF8.GetString(lexbuf.Lexeme)) }
   | eof         { EOF }

@@ -62,7 +62,7 @@ module CodeGeneration =
                                 CE vEnv fEnv e2 @ CE vEnv fEnv e1 @ ins
 
        | Apply(o,es) ->
-              let (l, p) = Map.find o fEnv
+              let (l, p, paraNames) = Map.find o fEnv
               List.collect (fun e -> CE vEnv fEnv e) es @ [CALL(List.length es, l)]
 
        | _            -> failwith "CE: not supported yet"
@@ -139,7 +139,7 @@ module CodeGeneration =
 (* Build environments for global variables and functions *)
 
    let makeGlobalEnvs decs =
-       let rec addv decs vEnv fEnv =
+       let rec addv decs vEnv (fEnv : funEnv) =
            match decs with
            | []         -> (vEnv, fEnv, [])
            | dec::decr  ->
@@ -152,7 +152,7 @@ module CodeGeneration =
                                        let (vEnv2, fEnv2, code2) = addv decr vEnv1 fEnv
                                        (vEnv2, fEnv2, code1 @ code2)
              | FunDec (Some typ, f, xs, body) ->
-                    addv decr vEnv (Map.add f (newLabel(), Some typ) fEnv)
+                    addv decr vEnv (Map.add f (newLabel(), Some typ,[]) fEnv)
                    (*let labelf = newLabel()
                     let (vEnv1, code1) = allocate GloVar (typ, f) vEnv
                     let (vEnv2, fEnv2, code2) = addv decr vEnv1 (Map.add f (labelf, Some typ) fEnv)
@@ -174,7 +174,7 @@ module CodeGeneration =
        let ((gvM,_) as gvEnv, fEnv, initCode) = makeGlobalEnvs decs
 
        let compilefun (typ, f, xs, body) =
-            let (l, p) = Map.find f fEnv
+            let (l, p,parName) = Map.find f fEnv
             // let (envf, fdepthf) = bindParams p (globalVarEnv, 0)
             [Label l] @ CS gvEnv fEnv body
 

@@ -7,11 +7,10 @@ open GuardedCommands.Frontend.AST
 %token <string> STRING
 %token <string> NAME
 %token ITYP BTYP
-%token PNTR ADDR
 %token LP LCP LSP RP RCP RSP
 %token IF FI DO OD BEGIN END
 %token COMMA COLON SEMI BAR TO
-%token NEG PLUS MINUS TIMES DIV MOD AND EQ LE GE LT GT NEQ
+%token NEG PLUS MINUS TIMES DIV MOD AND EQ LE GE LT GT NEQ PNTR ADDR
 %token PRINT ASG SKIP ABORT RETURN
 %token EOF
 %token FUN

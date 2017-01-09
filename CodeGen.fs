@@ -81,7 +81,7 @@ module CodeGeneration =
                                      | AVar x     ->
                                          // We look up and see the array address
                                          match Map.find x (fst vEnv) with
-                                           | (GloVar addr,ATyp (ITyp,Some size)) ->
+                                           | (GloVar addr,ATyp (_,Some size)) ->
                                               //match t with
                                               //  | _   -> printfn "%A" t
                                               // To find the right position, we

@@ -98,9 +98,10 @@ module CodeGeneration =
        | Block([],stms)   -> CSs vEnv fEnv stms
 
        | Return (Some e) ->
+            printfn "%A" "inside return"
             printfn "%A" vEnv
             printfn "%A" fEnv
-            CE vEnv fEnv e @ [RET (snd vEnv)]
+            CE vEnv fEnv e @ [RET 2]
 
 
        | Alt (GC gc)      ->
@@ -151,17 +152,16 @@ module CodeGeneration =
                                        let (vEnv2, fEnv2, code2) = addv decr vEnv1 fEnv
                                        (vEnv2, fEnv2, code1 @ code2)
              | FunDec (Some typ, f, xs, body) ->
-                    let labelf = newLabel()
+                    addv decr vEnv (Map.add f (newLabel(), Some typ) fEnv)
+                   (*let labelf = newLabel()
                     let (vEnv1, code1) = allocate GloVar (typ, f) vEnv
                     let (vEnv2, fEnv2, code2) = addv decr vEnv1 (Map.add f (labelf, Some typ) fEnv)
-                    (vEnv2, fEnv2, code1 @ code2 @ [Label labelf] @ (CS vEnv2 fEnv2 body))
-                    
+                   *)
+                     //(vEnv2, fEnv2, code1 @ code2 @ [Label labelf] @ (CS vEnv2 fEnv2 body))
                     //addv decr vEnv (Map.add f (newLabel(), Some typ, xs) fEnv)
                     (*
                     let labelf = newLabel()
-                    let code addv decr vEnv Map.add f (newLabeel(), Some typ, xs) fEnv) 
-                    
-                    
+                    let code addv decr vEnv Map.add f (newLabeel(), Some typ, xs) fEnv)
                     [Label labelf] @ (CS vEnv fEnv body)
                     *)
              | _ ->
@@ -172,4 +172,19 @@ module CodeGeneration =
    let CP (P(decs,stms)) =
        let _ = resetLabels ()
        let ((gvM,_) as gvEnv, fEnv, initCode) = makeGlobalEnvs decs
+
+       let compilefun (typ, f, xs, body) =
+            let (l, p) = Map.find f fEnv
+            // let (envf, fdepthf) = bindParams p (globalVarEnv, 0)
+            [Label l] @ CS gvEnv fEnv body
+
+            //[Label labf] @ code @ [RET (List.length paras-1)]
+       let functions =
+                List.choose (function
+                         | FunDec (Some typ, f, xs, body)
+                                    -> Some (compilefun (typ, f, xs, body))
+                         | _ -> None) decs
+
+       printfn "fun %A" functions
        initCode @ CSs gvEnv fEnv stms @ [STOP]
+       @ List.concat functions

@@ -81,10 +81,19 @@ module CodeGeneration =
                                      | AVar x     ->
                                          // We look up and see the array address
                                          match Map.find x (fst vEnv) with
-                                           | (GloVar addr,_) ->
+                                           | (GloVar addr,ATyp (ITyp,Some size)) ->
+                                              //match t with
+                                              //  | _   -> printfn "%A" t
                                               // To find the right position, we
                                               // take the array stack position and add the index.
-                                              CE vEnv fEnv e @ [CSTI addr; ADD]
+                                              let expCode = CE vEnv fEnv e
+                                              //we need to check if size > rvalue of e.
+                                              let outOfBounds = newLabel()
+                                              let labelEnd = newLabel()
+                                              // First put in the size of the array, then insert the
+                                              //
+                                              expCode @ [CSTI size;LT;IFZERO outOfBounds] @ expCode @ [CSTI addr; ADD; GOTO labelEnd; Label outOfBounds; STOP; Label labelEnd]
+                                           | (GloVar addr,_) -> failwith "Array formal parameter access not yet supported."
                                            | (LocVar addr,_) -> failwith "CA: Local variables not supported yet"
                                      | ADeref _   -> failwith "Pointers not implemented yet."
                                      | AIndex _   -> failwith "Nested arrays detected I think."

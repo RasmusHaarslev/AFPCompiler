@@ -21,8 +21,8 @@ type token =
   | LT
   | GT
   | NEQ
-  | PNTR
-  | ADDR
+  | HAT
+  | AMP
   | COMMA
   | COLON
   | SEMI
@@ -68,8 +68,8 @@ type tokenId =
     | TOKEN_LT
     | TOKEN_GT
     | TOKEN_NEQ
-    | TOKEN_PNTR
-    | TOKEN_ADDR
+    | TOKEN_HAT
+    | TOKEN_AMP
     | TOKEN_COMMA
     | TOKEN_COLON
     | TOKEN_SEMI

@@ -102,7 +102,6 @@ module CodeGeneration =
                                      | AIndex _   -> failwith "Nested arrays detected I think."
                                | ADeref e       -> failwith "CA: pointer dereferencing not supported yet"
 
-
 (* Bind declared variable in env and generate code to allocate it: *)
    let allocate (kind : int -> Var) (typ, x) (vEnv : varEnv)  =
     let (env, fdepth) = vEnv

@@ -1,0 +1,4 @@
+begin
+  p : ^int;
+  p^ := 4
+end

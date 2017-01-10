@@ -251,12 +251,12 @@ and _fslex_tokenize  _fslex_state lexbuf =
           )
   | 28 -> ( 
 # 69 "Lexer.fsl"
-                                 PNTR 
+                                 HAT 
 # 255 "Lexer.fs"
           )
   | 29 -> ( 
 # 70 "Lexer.fsl"
-                                 ADDR 
+                                 AMP 
 # 260 "Lexer.fs"
           )
   | 30 -> ( 

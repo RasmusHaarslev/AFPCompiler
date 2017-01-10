@@ -94,13 +94,22 @@ module TypeCheck =
                                          else failwith "illtyped assignment"
 
                          | Block([],stms) -> List.iter (tcS gtenv ltenv) stms
+
+                         | Block(xs,stms) ->
+                              //update ltenv med xs
+                              //eller kald tcGdecs
+                              let ltenv = tcGDecs ltenv xs
+                              List.iter (tcS gtenv ltenv) stms
+
                          | Return (Some e) ->
                               // ???
                               tcE gtenv ltenv e |> ignore
                               ()
 
                          | Alt (GC gc) | Do (GC gc) -> List.iter (tcGC gtenv ltenv) gc
-                         | _              -> failwith "tcS: this statement is not supported yet"
+                         | x              ->
+                              printfn "%A" x
+                              failwith "tcS: this statement is not supported yet %A"
 
    and tcGC gtenv ltenv (e, stms) =  if tcE gtenv ltenv e = BTyp
                                      then List.iter (tcS gtenv ltenv) stms
@@ -140,7 +149,7 @@ module TypeCheck =
                           | _ -> ()
 
                         match stm with
-                            | Block([],stms) -> List.iter checkReturn stms
+                            | Block(_,stms) -> List.iter checkReturn stms
                             | Return _ as k       -> checkReturn k
                             | _ -> failwith "illtyped stm in function"
 

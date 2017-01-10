@@ -127,6 +127,20 @@ module CodeGeneration =
 
        | Block([],stms)   -> CSs vEnv fEnv stms
 
+       | Block(xs,stms)   ->
+
+         let allocator (vEnv,code) x =
+              match x with
+                  | VarDec (typ, var) ->
+                      let (vEnv1, code1) = allocate LocVar (typ, var) vEnv
+                      (vEnv1, code1 @ code)
+
+                  | _ -> failwith "what to do with function"
+
+         let (vEnv, code) = List.fold allocator (vEnv, []) xs
+
+         code @ CSs vEnv fEnv stms
+
        | Return (Some e) ->
             CE vEnv fEnv e @ [RET (snd vEnv)]
 
@@ -193,6 +207,7 @@ module CodeGeneration =
        let _ = resetLabels ()
        let ((gvM,_) as gvEnv, fEnv, initCode) = makeGlobalEnvs decs
 
+       //With help from Peter Sestoft
        let compilefun (typ, f, xs, body) =
             let (l, _,paras) = Map.find f fEnv
 

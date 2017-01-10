@@ -1,4 +1,6 @@
 begin
-  p : ^int;
-  p^ := 4
+  p : ^int,
+  q : ^int;
+  p^ := 4;
+  q := &p^
 end

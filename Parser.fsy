@@ -20,7 +20,8 @@ open GuardedCommands.Frontend.AST
 %nonassoc NEG
 %left EQ LE GE LT GT NEQ
 %left PLUS MINUS
-%left TIMES DIV MOD HAT AMP
+%left TIMES DIV MOD AMP
+%right HAT
 
 %start Main Prog
 %type <Exp> Exp

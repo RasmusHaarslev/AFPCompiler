@@ -80,7 +80,13 @@ module TypeCheck =
                                             | None   -> failwith ("no declaration for : " + x)
                                             | Some t -> t
                                 | Some t -> t
-         | ADeref(s)      -> failwith "tcA: pointer dereferencing not supported yet"
+         | ADeref(a)      -> match tcE gtenv ltenv a with
+                             | PTyp BTyp -> BTyp
+                             | PTyp ITyp -> ITyp
+                             | PTyp (ATyp(t, _)) -> t
+                             | PTyp (PTyp _) -> failwith "Deref: Pointer pointers not supported"
+                             | PTyp (FTyp _) -> failwith "Deref: Function pointers not supported"
+                             | _ -> failwith "Deref: illtyped assignment"
 
 
 /// tcS gtenv ltenv retOpt s checks the well-typeness of a statement s on the basis of type environments gtenv and ltenv

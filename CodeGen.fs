@@ -100,7 +100,15 @@ module CodeGeneration =
                                            | (LocVar addr,_) -> failwith "CA: Local variables not supported yet"
                                      | ADeref _   -> failwith "Pointers not implemented yet."
                                      | AIndex _   -> failwith "Nested arrays detected I think."
-                               | ADeref e       -> failwith "CA: pointer dereferencing not supported yet"
+                               | ADeref e       -> match e with
+                                                   | Access (AVar x) -> match Map.find x (fst vEnv) with
+                                                                        | GloVar addr, _ | LocVar addr, _ -> [CSTI addr; LDI]
+                                                   | Addr _ -> failwith "CA: Addr pointer not yet implemented"
+                                                   | Access (AIndex(_)) -> failwith "CA: Array pointers not yet implemented"
+                                                   | Access (ADeref _) -> failwith "CA: Pointer pointer not supported"
+                                                   | _ -> failwith "CA: GET OUTTA 'EREEEE"
+
+
 
 (* Bind declared variable in env and generate code to allocate it: *)
    let allocate (kind : int -> Var) (typ, x) (vEnv : varEnv)  =
@@ -184,8 +192,8 @@ module CodeGeneration =
                     let funcLabel = newLabel()
                     let newFEnv = Map.add f (funcLabel,typ,parList) fEnv
                     addv decr vEnv newFEnv
-             | _ ->
-             failwith "makeGlobalEnvs: function/procedure declarations not supported yet"
+            // | _ ->
+            // failwith "makeGlobalEnvs: function/procedure declarations not supported yet"
        addv decs (Map.empty, 0) Map.empty
 
 /// CP prog gives the code for a program prog

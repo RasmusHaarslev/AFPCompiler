@@ -65,8 +65,9 @@ module TypeCheck =
                                          | None   -> failwith ("no declaration for : " + x)
                                          | Some t -> t
                              | Some t -> t
-         | AIndex(acc, e) -> failwith "tcA: array indexing not supported yes"
-         | ADeref e       -> failwith "tcA: pointer dereferencing not supported yes"
+         | AIndex(acc, e) -> failwith "tcA: array indexing not supported yet"
+         | ADeref e       -> failwith "tcA: pointer dereferencing not supported yet"
+         | ARef e         -> failwith "tcA: Pointer reference not supported yet"
 
 
 /// tcS gtenv ltenv retOpt s checks the well-typeness of a statement s on the basis of type environments gtenv and ltenv

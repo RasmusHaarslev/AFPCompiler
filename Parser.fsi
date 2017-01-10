@@ -2,6 +2,7 @@
 module Parser
 type token = 
   | HIGH
+  | PROC
   | FUN
   | EOF
   | PRINT
@@ -49,6 +50,7 @@ type token =
   | INT of (int)
 type tokenId = 
     | TOKEN_HIGH
+    | TOKEN_PROC
     | TOKEN_FUN
     | TOKEN_EOF
     | TOKEN_PRINT
@@ -114,6 +116,7 @@ type nonTerminalId =
     | NONTERM_GCList
     | NONTERM_Exp
     | NONTERM_ExpList
+    | NONTERM_ExpL
 /// This function maps tokens to integer indexes
 val tagOfToken: token -> int
 

@@ -112,6 +112,11 @@ module TypeCheck =
                               tcE gtenv ltenv e |> ignore
                               ()
 
+                         | Call (n, expL) ->
+                              //skal måske tilføje expl til ltenv her?
+                              List.map (tcE gtenv ltenv) expL |> ignore
+                              ()
+
                          | Alt (GC gc) | Do (GC gc) -> List.iter (tcGC gtenv ltenv) gc
                          | x              ->
                               printfn "%A" x
@@ -129,17 +134,15 @@ module TypeCheck =
                       // Array formal parameter.
                       | VarDec(ATyp (t,None),s)               -> Map.add s t gtenv
                       | VarDec(t,s)               -> Map.add s t gtenv
-                      | FunDec(Some t,f,decs,stm) as b->
+                      | FunDec(t,f,decs,stm) as b->
                         let typList = (tcGDecs Map.empty decs
                                           |> Map.toList
                                           |> List.map snd)
 
                         let mkLtenv acc x =
                             match x with
-         //| FTyp of Typ list * Typ option (* Type function and procedure *)
                                 | VarDec (typ, v) -> Map.add v typ acc
                                 | FunDec (t, f, decs, stm) -> Map.add f (FTyp (typList, t)) acc
-                                | _ -> failwith "not a  allowed function declaration okay"
 
                         let stmDecs = match stm with
                             | Block(x,_) -> x
@@ -152,21 +155,22 @@ module TypeCheck =
                         tcS gtenv ltenv stm
 
                         // check returntype is correct...
-                        let checkReturn = function
+                        let checkReturn t = function
                           | Return (Some x) ->
-                              //should probabbly not be map.empty
-
                               if tcE gtenv ltenv x = t then
                                   ()
                               else
                                   failwith "return type failure in function"
                           | _ -> ()
 
-                        match stm with
-                            | Block(_,stms) -> List.iter checkReturn stms
-                            | Return _ as k -> checkReturn k
-                            | _ -> ()
-
+                        match t with
+                          | None -> ()
+                          | Some t ->
+                              match stm with
+                                  | Block(_,stms) -> List.iter (checkReturn t) stms
+                                  | Return _ as k -> (checkReturn t) k
+                                  // XD
+                                  | _ -> ()
 
                         // check parameter are all different
                         let decToList = function
@@ -176,14 +180,14 @@ module TypeCheck =
                         let decsAsList = List.map decToList decs
 
                         if List.distinct decsAsList = decsAsList then
-                            Map.add f (FTyp (typList, Some t)) gtenv
+                            Map.add f (FTyp (typList,t)) gtenv
 
                         else
                             failwith "illtyped function declaration"
 
 
                       | _ ->
-                        failwith "type check: function/procedure declarations not yet supported"
+                        failwith "type check: Something went bad in declaration"
 
 
    and tcGDecs gtenv = function

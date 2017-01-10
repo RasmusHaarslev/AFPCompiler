@@ -153,7 +153,34 @@ module CodeGeneration =
             let labstart = newLabel()
             in [Label labstart] @ List.collect (CSgcAlt vEnv fEnv labstart) gc
 
-       | _                -> failwith "CS: this statement is not supported yet"
+       | Call (n, expL) ->
+            printfn "tror det skal gøres noget her"
+            printfn "tror det skal gøres noget her"
+            printfn "tror det skal gøres noget her"
+            printfn "tror det skal gøres noget her"
+//       | Ass(acc,e)       -> CA vEnv fEnv acc @ CE vEnv fEnv e @ [STI; INCSP -1]
+            List.collect (fun e -> CE vEnv fEnv e @[STI; INCSP -1]) expL
+    //LOOKUP n -- get parameter names
+    // then run allocator..
+        //  printfn "%A looolol" vEnv
+
+          //printfn "assd %A" expL
+         // []
+(*
+         let allocator (vEnv,code) x =
+              match x with
+                  | VarDec (typ, var) ->
+                      let (vEnv1, code1) = allocate LocVar (typ, var) vEnv
+                      (vEnv1, code1 @ code)
+
+                  | _ -> failwith "what to do with function"
+
+         let (vEnv, code) = List.fold allocator (vEnv, []) xs
+*)
+
+       | x                ->
+          printfn "%A" x
+          failwith "CS: this statement is not supported yet"
 
    and CSgcAlt vEnv fEnv labend (e, stms) =
        let labelNext = newLabel()

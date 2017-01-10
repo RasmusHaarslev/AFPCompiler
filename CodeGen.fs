@@ -29,6 +29,7 @@ module CodeGeneration =
        | N n          -> [CSTI n]
        | B b          -> [CSTI (if b then 1 else 0)]
        | Access acc   -> CA vEnv fEnv acc @ [LDI]
+       | Addr acc     -> CA vEnv fEnv acc
 
        | Apply("-", [e]) -> CE vEnv fEnv e @  [CSTI 0; SWAP; SUB]
 
@@ -102,7 +103,7 @@ module CodeGeneration =
                                      | AIndex _   -> failwith "Nested arrays detected I think."
                                | ADeref e       -> match e with
                                                    | Access (AVar x) -> match Map.find x (fst vEnv) with
-                                                                        | GloVar addr, _ | LocVar addr, _ -> [CSTI addr; LDI]
+                                                                        | GloVar addr, _ | LocVar addr, _ -> [CSTI addr]
                                                    | Addr _ -> failwith "CA: Addr pointer not yet implemented"
                                                    | Access (AIndex(_)) -> failwith "CA: Array pointers not yet implemented"
                                                    | Access (ADeref _) -> failwith "CA: Pointer pointer not supported"

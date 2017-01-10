@@ -86,7 +86,7 @@ let sameStack = go ex1Tree;;
 
 // Test of programs covered by the second task (Section 4.3):
 //List.iter exec ["test_programs/Ex7.gc";"tst_program];;
-List.iter exec ["test_programs/Ex7.gc";] // "test_programs/fact.gc"; "test_programs/factRec.gc"; "test_programs/factCBV.gc"];;
+List.iter exec ["test_programs/Ex7.gc"; "test_programs/fact.gc"; "test_programs/factRec.gc"; "test_programs/factCBV.gc"];;
 
 // Test of programs covered by the fourth task (Section 5.4):
 //List.iter exec ["test_programs/A0.gc"; "test_programs/A1.gc"; "test_programs/A2.gc"; "test_programs/A3.gc"];;

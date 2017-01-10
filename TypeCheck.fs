@@ -42,7 +42,7 @@ module TypeCheck =
    and tcNaryFunction gtenv ltenv f es =
         let r = match Map.tryFind f ltenv with
                              | None   -> match Map.tryFind f gtenv with
-                                         | None   -> failwith ("no declaration for : " + f)
+                                         | None   -> failwith ("ano declaration for : " + f)
                                          | Some t -> t
                              | Some t -> t
         match r with
@@ -51,7 +51,9 @@ module TypeCheck =
                     t
                 else
                     failwith "function call params does not match"
-            | _ -> failwith "error in function call"
+            | _ -> 
+            printfn "%A" r
+            failwith "error in function call"
 
    and tcNaryProcedure gtenv ltenv f es = failwith "type check: procedures not supported yet"
 
@@ -62,7 +64,10 @@ module TypeCheck =
          function
          | AVar x         -> match Map.tryFind x ltenv with
                              | None   -> match Map.tryFind x gtenv with
-                                         | None   -> failwith ("ino declaration for : " + x)
+                                         | None   -> 
+                                         printfn "ltenv %A" ltenv
+                                         printfn "gtenv %A" gtenv
+                                         failwith ("ino declaration for : " + x)
                                          | Some t -> t
                              | Some t -> t
 
@@ -78,7 +83,7 @@ module TypeCheck =
                                 // Do regular variable loop otherwise.
                                 match Map.tryFind x ltenv with
                                 | None   -> match Map.tryFind x gtenv with
-                                            | None   -> failwith ("no declaration for : " + x)
+                                            | None   -> failwith ("ino declaration for : " + x)
                                             | Some t -> t
                                 | Some t -> t
          | ADeref(s)      -> failwith "tcA: pointer dereferencing not supported yet"
@@ -99,6 +104,7 @@ module TypeCheck =
                               //update ltenv med xs
                               //eller kald tcGdecs
                               let ltenv = tcGDecs ltenv xs
+                              printfn "%A" ltenv
                               List.iter (tcS gtenv ltenv) stms
 
                          | Return (Some e) ->
@@ -123,16 +129,24 @@ module TypeCheck =
                       // Array formal parameter.
                       | VarDec(ATyp (t,None),s)               -> Map.add s t gtenv
                       | VarDec(t,s)               -> Map.add s t gtenv
-                      | FunDec(Some t,f,decs,stm) ->
-                        let typList = (tcGDecs Map.empty decs |> Map.toList |> List.map snd)
+                      | FunDec(Some t,f,decs,stm) as b->
+                        let typList = (tcGDecs Map.empty decs
+                                          |> Map.toList
+                                          |> List.map snd)
 
                         let mkLtenv acc x =
                             match x with
+         //| FTyp of Typ list * Typ option (* Type function and procedure *)
                                 | VarDec (typ, v) -> Map.add v typ acc
-                                | _ -> failwith "not allowed function declaration"
+                                | FunDec (t, f, decs, stm) -> Map.add f (FTyp (typList, t)) acc
+                                | _ -> failwith "not a  allowed function declaration okay"
 
+                        let stmDecs = match stm with
+                            | Block(x,_) -> x
+                            | _ -> []
 
-                        let ltenv = List.fold mkLtenv  Map.empty decs
+                        let ltenv = List.fold mkLtenv Map.empty (b::decs@stmDecs)
+
 
                         //check stm is well-typedi
                         tcS gtenv ltenv stm
@@ -150,8 +164,8 @@ module TypeCheck =
 
                         match stm with
                             | Block(_,stms) -> List.iter checkReturn stms
-                            | Return _ as k       -> checkReturn k
-                            | _ -> failwith "illtyped stm in function"
+                            | Return _ as k -> checkReturn k
+                            | _ -> ()
 
 
                         // check parameter are all different

@@ -72,7 +72,34 @@ module CodeGeneration =
    and CA vEnv fEnv = function | AVar x         -> match Map.find x (fst vEnv) with
                                                    | (GloVar addr,_) -> [CSTI addr]
                                                    | (LocVar addr,_) -> failwith "CA: Local variables not supported yet"
-                               | AIndex(acc, e) -> failwith "CA: array indexing not supported yet"
+                               | AIndex(acc, e) ->
+                                   // Array indexing takes an "access" and an expression
+                                   // Not sure why, but I think it's because of pointers later.
+                                   match acc with
+                                     // We only allow the user to access arrays by referencing the array name
+                                     // Hence why we error on ADeref and AIndex.
+                                     | AVar x     ->
+                                         // We look up and see the array address
+                                         match Map.find x (fst vEnv) with
+                                           | (GloVar addr,ATyp (_,Some size)) ->
+                                              //match t with
+                                              //  | _   -> printfn "%A" t
+                                              // To find the right position, we
+                                              // take the array stack position and add the index.
+                                              let expCode = CE vEnv fEnv e
+                                              //we need to check if size > rvalue of e.
+                                              let outOfBounds = newLabel()
+                                              let labelEnd = newLabel()
+                                              // First we check if index out of bounds.
+                                              expCode @ [CSTI size;LT;IFZERO outOfBounds] @
+                                              // If index is within bounds, we find the address by
+                                              // expression result + array address.
+                                              // After the addition, we GOTO labelEnd.
+                                              expCode @ [CSTI addr; ADD; GOTO labelEnd; Label outOfBounds; STOP; Label labelEnd]
+                                           | (GloVar addr,_) -> failwith "Array formal parameter access not yet supported."
+                                           | (LocVar addr,_) -> failwith "CA: Local variables not supported yet"
+                                     | ADeref _   -> failwith "Pointers not implemented yet."
+                                     | AIndex _   -> failwith "Nested arrays detected I think."
                                | ADeref e       -> failwith "CA: pointer dereferencing not supported yet"
 
 
@@ -82,7 +109,11 @@ module CodeGeneration =
     match typ with
     | ATyp (ATyp _, _) ->
       raise (Failure "allocate: array of arrays not permitted")
-    | ATyp (t, Some i) -> failwith "allocate: array not supported yet"
+    | ATyp (t, Some i) ->
+      //  We initialize the array values to 0.
+      let newEnv = (Map.add x (kind fdepth, typ) env, fdepth+i)
+      let code = [INCSP i]
+      (newEnv, code)
     | _ ->
       let newEnv = (Map.add x (kind fdepth, typ) env, fdepth+1)
       let code = [INCSP 1]

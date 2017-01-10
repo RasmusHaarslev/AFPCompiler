@@ -65,7 +65,21 @@ module TypeCheck =
                                          | None   -> failwith ("no declaration for : " + x)
                                          | Some t -> t
                              | Some t -> t
-         | AIndex(acc, e) -> failwith "tcA: array indexing not supported yet"
+         | AIndex(acc, e) -> match acc with
+                              | AIndex _   -> failwith "Nested array not allowed."
+                              // I say pointers not implemented yet, but I'm not sure how exactly
+                              // pointers and arrays are going to work out.
+                              | ADeref _   -> failwith "Pointers not implemented yet."
+                              | AVar x     ->
+                                // Check if user is accessing with integer.
+                                if tcE gtenv ltenv e <> ITyp then
+                                  failwith "Array indexing must be done with integer."
+                                // Do regular variable loop otherwise.
+                                match Map.tryFind x ltenv with
+                                | None   -> match Map.tryFind x gtenv with
+                                            | None   -> failwith ("no declaration for : " + x)
+                                            | Some t -> t
+                                | Some t -> t
          | ADeref e       -> failwith "tcA: pointer dereferencing not supported yet"
          | ARef e         -> failwith "tcA: Pointer reference not supported yet"
 
@@ -92,14 +106,14 @@ module TypeCheck =
                                      then List.iter (tcS gtenv ltenv) stms
 
    and tcGDec gtenv = function
-                      | VarDec(t,s)               -> Map.add s t gtenv
-                      | ArrDec(t,s,Some sizeExpr)      ->
-                        // Arrays must have an integer expression for size.
-                        if tcE gtenv Map.empty sizeExpr <> ITyp then
-                          failwith "Array size declaration must be integer"
-
+                      // Array declaration.
+                      | VarDec(ATyp (t,Some i),s)               ->
+                        if i < 0 then
+                          failwith "Array size must be larger than 0."
                         Map.add s t gtenv
-                      | ArrDec(t,s,None)        -> failwith "Arrays as function parameter not implemented yet."
+                      // Array formal parameter.
+                      | VarDec(ATyp (t,None),s)               -> Map.add s t gtenv
+                      | VarDec(t,s)               -> Map.add s t gtenv
                       | FunDec(Some t,f,decs,stm) ->
                         let typList = (tcGDecs Map.empty decs |> Map.toList |> List.map snd)
 

@@ -28,7 +28,9 @@ open VirtualMachine
 
 //ignore(exec "test_programs/testBooleanOperators.gc")
 //ignore(exec "test_programs/testModDiv.gc")
-//ignore(exec "test_programs/functionTest.gc")
+
+//ignore(exec "test_programs/arrayTest.gc")
+//ignore(exec "test_programs/A0.gc")
 
 //let ex1Tree = parseFromFile "test_programs/functionTest.gc"
 //ignore(tcP ex1Tree)

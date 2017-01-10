@@ -1,5 +1,18 @@
 begin
-  a   : int,
-  res : int[a];
-  print 3
+  res : int[3],
+  arr2 : bool[4];
+  res[0] := 0000;
+  res[1] := 1111;
+  res[2] := 2222;
+  arr2[0] := false;
+  arr2[1] := true;
+  arr2[2] := false;
+  arr2[3] := true;
+  print res[0] = 0;
+  print res[1] = 1111;
+  print res[2] = 2222;
+  print arr2[0] = false;
+  print arr2[1] = true;
+  print arr2[2] = false;
+  print arr2[3] = true
 end

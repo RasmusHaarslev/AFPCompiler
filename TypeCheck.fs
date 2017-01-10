@@ -62,9 +62,10 @@ module TypeCheck =
          function
          | AVar x         -> match Map.tryFind x ltenv with
                              | None   -> match Map.tryFind x gtenv with
-                                         | None   -> failwith ("no declaration for : " + x)
+                                         | None   -> failwith ("ino declaration for : " + x)
                                          | Some t -> t
                              | Some t -> t
+
          | AIndex(acc, e) -> match acc with
                               | AIndex _   -> failwith "Nested array not allowed."
                               // I say pointers not implemented yet, but I'm not sure how exactly
@@ -116,15 +117,23 @@ module TypeCheck =
                       | FunDec(Some t,f,decs,stm) ->
                         let typList = (tcGDecs Map.empty decs |> Map.toList |> List.map snd)
 
-                        //check stm is well-typed
-                        tcS gtenv (Map.empty) stm
+                        let mkLtenv acc x =
+                            match x with
+                                | VarDec (typ, v) -> Map.add v typ acc
+                                | _ -> failwith "not allowed function declaration"
+
+
+                        let ltenv = List.fold mkLtenv  Map.empty decs
+
+                        //check stm is well-typedi
+                        tcS gtenv ltenv stm
 
                         // check returntype is correct...
                         let checkReturn = function
                           | Return (Some x) ->
                               //should probabbly not be map.empty
 
-                              if tcE gtenv Map.empty x = t then
+                              if tcE gtenv ltenv x = t then
                                   ()
                               else
                                   failwith "return type failure in function"

@@ -93,6 +93,13 @@ module TypeCheck =
    and tcGDec gtenv = function
                       | VarDec(t,s)               -> Map.add s t gtenv
                       | PntrDec(t, s)             -> failwith "Not yet implemented"
+                      | ArrDec(t,s,Some sizeExpr)      ->
+                        // Arrays must have an integer expression for size.
+                        if tcE gtenv Map.empty sizeExpr <> ITyp then
+                          failwith "Array size declaration must be integer"
+
+                        Map.add s t gtenv
+                      | ArrDec(t,s,None)        -> failwith "Arrays as function parameter not implemented yet."
                       | FunDec(Some t,f,decs,stm) ->
                         let typList = (tcGDecs Map.empty decs |> Map.toList |> List.map snd)
 
@@ -112,6 +119,7 @@ module TypeCheck =
 
                         match stm with
                             | Block([],stms) -> List.iter checkReturn stms
+                            | Return _ as k       -> checkReturn k
                             | _ -> failwith "illtyped stm in function"
 
 

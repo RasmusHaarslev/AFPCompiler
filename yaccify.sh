@@ -1,2 +1,3 @@
 fslex Lexer.fsl
-fsyacc Parser.fsy --module Parser
+fsyacc Parser.fsy
+sed -i '2 i\module Parser' Parser.fs

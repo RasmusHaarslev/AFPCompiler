@@ -1,0 +1,6 @@
+begin
+   a: int,
+   function f(x: int, y: int): int = return 9,
+   b: int;
+   print 3
+end

@@ -21,6 +21,8 @@ type token =
   | LT
   | GT
   | NEQ
+  | PNTR
+  | ADDR
   | COMMA
   | COLON
   | SEMI
@@ -38,11 +40,8 @@ type token =
   | RP
   | RCP
   | RSP
-  | PNTR
-  | ADDR
   | ITYP
   | BTYP
-  | PTYP
   | NAME of (string)
   | STRING of (string)
   | BOOL of (bool)
@@ -69,6 +68,8 @@ type tokenId =
     | TOKEN_LT
     | TOKEN_GT
     | TOKEN_NEQ
+    | TOKEN_PNTR
+    | TOKEN_ADDR
     | TOKEN_COMMA
     | TOKEN_COLON
     | TOKEN_SEMI
@@ -86,11 +87,8 @@ type tokenId =
     | TOKEN_RP
     | TOKEN_RCP
     | TOKEN_RSP
-    | TOKEN_PNTR
-    | TOKEN_ADDR
     | TOKEN_ITYP
     | TOKEN_BTYP
-    | TOKEN_PTYP
     | TOKEN_NAME
     | TOKEN_STRING
     | TOKEN_BOOL

@@ -188,7 +188,6 @@ module CodeGeneration =
                       match d with
                         | FunDec _ -> failwith "Functions as parameters NOT supported."
                         | VarDec (t,paraName)         -> (t,paraName)
-                        | ArrDec (t,paraName,_)         -> (t,paraName)
                     let parList = List.map tExtract xs
                     let funcLabel = newLabel()
                     let newFEnv = Map.add f (funcLabel,Some typ,parList) fEnv

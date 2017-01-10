@@ -29,7 +29,7 @@ open VirtualMachine
 //ignore(exec "test_programs/testBooleanOperators.gc")
 //ignore(exec "test_programs/testModDiv.gc")
 
-//ignore(exec "test_programs/arrayTest.gc")
+ignore(exec "test_programs/arrayTest.gc")
 //ignore(exec "test_programs/A0.gc")
 
 //let ex1Tree = parseFromFile "test_programs/functionTest.gc"
@@ -96,7 +96,7 @@ let sameStack = go ex1Tree;;
 //List.iter exec ["test_programs/A4.gc"; "test_programs/Swap.gc"; "test_programs/QuickSortV1.gc"];;
 
 // Test of programs covered by the fifth task (Section 7.4):
-List.iter exec ["test_programs/par1.gc"; "test_programs/factImpPTyp.gc"; "test_programs/QuickSortV2.gc"; "test_programs/par2.gc"];;
+//List.iter exec ["test_programs/par1.gc"; "test_programs/factImpPTyp.gc"; "test_programs/QuickSortV2.gc"; "test_programs/par2.gc"];;
 
 // Test of programs covered by the fifth task using optimized compilation (Section 8.2):
 //List.iter execOpt ["test_programs/par1.gc"; "test_programs/factImpPTyp.gc"; "test_programs/QuickSortV2.gc"; "test_programs/par2.gc"];;

@@ -43,7 +43,7 @@ module TypeCheck =
    and tcNaryFunction gtenv ltenv f es =
         let r = match Map.tryFind f ltenv with
                              | None   -> match Map.tryFind f gtenv with
-                                         | None   -> failwith ("no declaration for : " + f)
+                                         | None   -> failwith ("ano declaration for : " + f)
                                          | Some t -> t
                              | Some t -> t
         match r with
@@ -52,7 +52,9 @@ module TypeCheck =
                     t
                 else
                     failwith "function call params does not match"
-            | _ -> failwith "error in function call"
+            | _ -> 
+            printfn "%A" r
+            failwith "error in function call"
 
    and tcNaryProcedure gtenv ltenv f es = failwith "type check: procedures not supported yet"
 
@@ -63,9 +65,13 @@ module TypeCheck =
          function
          | AVar x         -> match Map.tryFind x ltenv with
                              | None   -> match Map.tryFind x gtenv with
-                                         | None   -> failwith ("no declaration for : " + x)
+                                         | None   -> 
+                                         printfn "ltenv %A" ltenv
+                                         printfn "gtenv %A" gtenv
+                                         failwith ("ino declaration for : " + x)
                                          | Some t -> t
                              | Some t -> t
+
          | AIndex(acc, e) -> match acc with
                               | AIndex _   -> failwith "Nested array not allowed."
                               // I say pointers not implemented yet, but I'm not sure how exactly
@@ -78,7 +84,7 @@ module TypeCheck =
                                 // Do regular variable loop otherwise.
                                 match Map.tryFind x ltenv with
                                 | None   -> match Map.tryFind x gtenv with
-                                            | None   -> failwith ("no declaration for : " + x)
+                                            | None   -> failwith ("ino declaration for : " + x)
                                             | Some t -> t
                                 | Some t -> t
          | ADeref e       -> match tcE gtenv ltenv e with
@@ -98,13 +104,28 @@ module TypeCheck =
                                             failwith "tcS: illtyped assignment"
 
                          | Block([],stms) -> List.iter (tcS gtenv ltenv) stms
+
+                         | Block(xs,stms) ->
+                              //update ltenv med xs
+                              //eller kald tcGdecs
+                              let ltenv = tcGDecs ltenv xs
+                              printfn "%A" ltenv
+                              List.iter (tcS gtenv ltenv) stms
+
                          | Return (Some e) ->
                               // ???
                               tcE gtenv ltenv e |> ignore
                               ()
 
+                         | Call (n, expL) ->
+                              //skal måske tilføje expl til ltenv her?
+                              List.map (tcE gtenv ltenv) expL |> ignore
+                              ()
+
                          | Alt (GC gc) | Do (GC gc) -> List.iter (tcGC gtenv ltenv) gc
-                         | _              -> failwith "tcS: this statement is not supported yet"
+                         | x              ->
+                              printfn "%A" x
+                              failwith "tcS: this statement is not supported yet %A"
 
    and tcGC gtenv ltenv (e, stms) =  if tcE gtenv ltenv e = BTyp
                                      then List.iter (tcS gtenv ltenv) stms
@@ -118,28 +139,43 @@ module TypeCheck =
                       // Array formal parameter.
                       | VarDec(ATyp (t,None),s)                 -> Map.add s t gtenv
                       | VarDec(t,s)               -> Map.add s t gtenv
-                      | FunDec(Some t,f,decs,stm) ->
-                        let typList = (tcGDecs Map.empty decs |> Map.toList |> List.map snd)
+                      | FunDec(t,f,decs,stm) as b->
+                        let typList = (tcGDecs Map.empty decs
+                                          |> Map.toList
+                                          |> List.map snd)
 
-                        //check stm is well-typed
-                        tcS gtenv (Map.empty) stm
+                        let mkLtenv acc x =
+                            match x with
+                                | VarDec (typ, v) -> Map.add v typ acc
+                                | FunDec (t, f, decs, stm) -> Map.add f (FTyp (typList, t)) acc
+
+                        let stmDecs = match stm with
+                            | Block(x,_) -> x
+                            | _ -> []
+
+                        let ltenv = List.fold mkLtenv Map.empty (b::decs@stmDecs)
+
+
+                        //check stm is well-typedi
+                        tcS gtenv ltenv stm
 
                         // check returntype is correct...
-                        let checkReturn = function
+                        let checkReturn t = function
                           | Return (Some x) ->
-                              //should probabbly not be map.empty
-
-                              if tcE gtenv Map.empty x = t then
+                              if tcE gtenv ltenv x = t then
                                   ()
                               else
                                   failwith "return type failure in function"
                           | _ -> ()
 
-                        match stm with
-                            | Block([],stms) -> List.iter checkReturn stms
-                            | Return _ as k       -> checkReturn k
-                            | _ -> failwith "illtyped stm in function"
-
+                        match t with
+                          | None -> ()
+                          | Some t ->
+                              match stm with
+                                  | Block(_,stms) -> List.iter (checkReturn t) stms
+                                  | Return _ as k -> (checkReturn t) k
+                                  // XD
+                                  | _ -> ()
 
                         // check parameter are all different
                         let decToList = function
@@ -149,14 +185,14 @@ module TypeCheck =
                         let decsAsList = List.map decToList decs
 
                         if List.distinct decsAsList = decsAsList then
-                            Map.add f (FTyp (typList, Some t)) gtenv
+                            Map.add f (FTyp (typList,t)) gtenv
 
                         else
                             failwith "illtyped function declaration"
 
 
                       | _ ->
-                        failwith "type check: function/procedure declarations not yet supported"
+                        failwith "type check: Something went bad in declaration"
 
 
    and tcGDecs gtenv = function

@@ -76,6 +76,7 @@ module CodeGeneration =
                                | AIndex(acc, e) ->
                                    // Array indexing takes an "access" and an expression
                                    // Not sure why, but I think it's because of pointers later.
+                                   printfn "%A xdxd" acc
                                    match acc with
                                      // We only allow the user to access arrays by referencing the array name
                                      // Hence why we error on ADeref and AIndex.
@@ -97,7 +98,9 @@ module CodeGeneration =
                                               // expression result + array address.
                                               // After the addition, we GOTO labelEnd.
                                               expCode @ [CSTI addr; ADD; GOTO labelEnd; Label outOfBounds; STOP; Label labelEnd]
-                                           | (GloVar addr,_) -> failwith "Array formal parameter access not yet supported."
+                                           | (GloVar addr,_) ->
+                                                    printfn "%xs"
+                                                    failwith "Array formal parameter access not yet supported."
                                            | (LocVar addr,_) -> failwith "CA: Local variables not supported yet"
                                      | ADeref _   -> failwith "Pointers not implemented yet."
                                      | AIndex _   -> failwith "Nested arrays detected I think."

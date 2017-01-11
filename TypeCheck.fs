@@ -69,12 +69,14 @@ module TypeCheck =
                                          | Some t -> t
                              | Some t -> t
 
-         | AIndex(acc, e) -> match acc with
+         | AIndex(acc, e) -> (*match acc with
                               | AIndex _   -> failwith "Nested array not allowed."
                               // I say pointers not implemented yet, but I'm not sure how exactly
                               // pointers and arrays are going to work out.
                               | ADeref _   -> failwith "Pointers not implemented yet."
                               | AVar x     ->
+
+                                let (ATyp(z,_)) = tcA gtenv ltenv acc
                                 // Check if user is accessing with integer.
                                 if tcE gtenv ltenv e <> ITyp then
                                   failwith "Array indexing must be done with integer."
@@ -84,11 +86,19 @@ module TypeCheck =
                                             | None   -> failwith ("ino declaration for : " + x)
                                             | Some t -> t
                                 | Some t -> t
+                                *)
+                                match (tcA gtenv ltenv acc) with
+                                  | ATyp (x,_) -> x
+                                  | x -> x
+
          | ADeref e       -> match tcE gtenv ltenv e with
                              | PTyp ITyp -> ITyp
                              | PTyp BTyp -> BTyp
                              | PTyp (ATyp(t, _)) -> t
                              | _-> failwith "Deref: Illtyped dereference."
+         | x              ->
+                          printfn "%A SHIIIIT" x
+                          failwith "lol"
 
 
 /// tcS gtenv ltenv retOpt s checks the well-typeness of a statement s on the basis of type environments gtenv and ltenv
@@ -98,7 +108,9 @@ module TypeCheck =
                          | Ass(acc,e) -> if tcA gtenv ltenv acc = tcE gtenv ltenv e
                                          then ()
                                          else
-                                            failwith "tcS: illtyped assignment"
+                                           printfn "%A e " (tcE gtenv ltenv e)
+                                           printfn "%A acc "  (tcA gtenv ltenv acc)
+                                           failwith "tcS: illtyped assignment"
 
                          | Block([],stms) -> List.iter (tcS gtenv ltenv) stms
 

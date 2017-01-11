@@ -13,7 +13,7 @@ module TypeCheck =
          | N _              -> ITyp
          | B _              -> BTyp
          | Access acc       -> tcA gtenv ltenv acc
-         | Addr acc         -> tcA gtenv ltenv acc
+         | Addr acc         -> PTyp(tcA gtenv ltenv acc)
 
          | Apply(f,[e]) when List.exists (fun x ->  x=f) ["-"; "!"]
                             -> tcMonadic gtenv ltenv f e
@@ -64,14 +64,8 @@ module TypeCheck =
          | AVar x         -> match Map.tryFind x ltenv with
                              | None   -> match Map.tryFind x gtenv with
                                          | None   -> failwith ("no declaration for : " + x)
-                                         | Some t -> match t with
-                                                      PTyp ITyp -> ITyp
-                                                    | PTyp BTyp -> BTyp
-                                                    | _ -> t
-                             | Some t -> match t with
-                                          PTyp ITyp -> ITyp
-                                        | PTyp BTyp -> BTyp
-                                        | _ -> t
+                                         | Some t -> t
+                             | Some t -> t
          | AIndex(acc, e) -> match acc with
                               | AIndex _   -> failwith "Nested array not allowed."
                               // I say pointers not implemented yet, but I'm not sure how exactly
@@ -88,24 +82,22 @@ module TypeCheck =
                                             | Some t -> t
                                 | Some t -> t
          | ADeref e       -> match tcE gtenv ltenv e with
-                             | PTyp BTyp -> BTyp
                              | PTyp ITyp -> ITyp
-                             | PTyp (ATyp(t, _)) -> t
-                             | PTyp (PTyp _) -> failwith "Deref: Pointer pointers not supported"
-                             | PTyp (FTyp _) -> failwith "Deref: Function pointers not supported"
-                             | t ->
-                                printfn "%A" t
-                                failwith "Deref: illtyped assignment"
+                             | PTyp BTyp -> BTyp
+                             | ATyp(t, _) -> t
+                             | PTyp _ -> failwith "Deref: Pointer pointers not supported"
+                             | FTyp _ -> failwith "Deref: Function pointers not supported"
+                             | _-> failwith "Deref: Illtyped dereference."
 
 
 /// tcS gtenv ltenv retOpt s checks the well-typeness of a statement s on the basis of type environments gtenv and ltenv
 /// for global and local variables and the possible type of return expressions
    and tcS gtenv ltenv = function
                          | PrintLn e -> ignore(tcE gtenv ltenv e)
-                         | Ass(acc,e) ->
-                              if tcA gtenv ltenv acc = tcE gtenv ltenv e
+                         | Ass(acc,e) -> if tcA gtenv ltenv acc = tcE gtenv ltenv e
                                          then ()
-                                         else failwith "illtyped assignment"
+                                         else
+                                            failwith "tcS: illtyped assignment"
 
                          | Block([],stms) -> List.iter (tcS gtenv ltenv) stms
                          | Return (Some e) ->

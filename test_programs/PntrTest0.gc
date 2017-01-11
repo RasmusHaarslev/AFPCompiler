@@ -1,0 +1,7 @@
+begin
+  ip : ^int,
+  ip^:= 3;
+
+  print ip;
+  print ip^
+end

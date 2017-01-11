@@ -5,7 +5,10 @@ begin
   i  := 2;
 
   print ip^;
+  print ip;
+
   print i;
+  print &i;
 
   ip := &i;
 

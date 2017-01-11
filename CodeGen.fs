@@ -102,12 +102,10 @@ module CodeGeneration =
                                      | ADeref _   -> failwith "Pointers not implemented yet."
                                      | AIndex _   -> failwith "Nested arrays detected I think."
                                | ADeref e       -> match e with
-                                                   | Access (AVar x) -> match Map.find x (fst vEnv) with
-                                                                        | GloVar addr, _ | LocVar addr, _ -> [CSTI addr]
                                                    | Addr _ -> failwith "CA: Addr pointer not yet implemented"
                                                    | Access (AIndex(_)) -> failwith "CA: Array pointers not yet implemented"
                                                    | Access (ADeref _) -> failwith "CA: Pointer pointer not supported"
-                                                   | _ -> failwith "CA: GET OUTTA 'EREEEE"
+                                                   | e -> CE vEnv fEnv e @ [LDI]
 
 
 

@@ -84,9 +84,7 @@ module TypeCheck =
          | ADeref e       -> match tcE gtenv ltenv e with
                              | PTyp ITyp -> ITyp
                              | PTyp BTyp -> BTyp
-                             | ATyp(t, _) -> t
-                             | PTyp _ -> failwith "Deref: Pointer pointers not supported"
-                             | FTyp _ -> failwith "Deref: Function pointers not supported"
+                             | PTyp (ATyp(t, _)) -> t
                              | _-> failwith "Deref: Illtyped dereference."
 
 

@@ -30,7 +30,7 @@ open VirtualMachine
 //ignore(exec "test_programs/testModDiv.gc")
 //ignore(exec "test_programs/functionTest.gc")
 
-ignore(exec "test_programs/PntrTest.gc")
+ignore(exec "test_programs/PntrTest0.gc")
 
 //let ex1Tree = parseFromFile "test_programs/functionTest.gc"
 //ignore(tcP ex1Tree)

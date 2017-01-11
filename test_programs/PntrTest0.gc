@@ -1,7 +1,9 @@
 begin
   ip : ^int,
-  ip^:= 3;
+  i  : int;
+  i  := 2;
 
-  print ip;
+  print ip^;
+  ip := &i;
   print ip^
 end

@@ -53,7 +53,6 @@ module TypeCheck =
                 else
                     failwith "function call params does not match"
             | _ -> 
-            printfn "%A" r
             failwith "error in function call"
 
    and tcNaryProcedure gtenv ltenv f es = failwith "type check: procedures not supported yet"
@@ -66,8 +65,6 @@ module TypeCheck =
          | AVar x         -> match Map.tryFind x ltenv with
                              | None   -> match Map.tryFind x gtenv with
                                          | None   -> 
-                                         printfn "ltenv %A" ltenv
-                                         printfn "gtenv %A" gtenv
                                          failwith ("ino declaration for : " + x)
                                          | Some t -> t
                              | Some t -> t
@@ -109,7 +106,6 @@ module TypeCheck =
                               //update ltenv med xs
                               //eller kald tcGdecs
                               let ltenv = tcGDecs ltenv xs
-                              printfn "%A" ltenv
                               List.iter (tcS gtenv ltenv) stms
 
                          | Return (Some e) ->
@@ -124,7 +120,6 @@ module TypeCheck =
 
                          | Alt (GC gc) | Do (GC gc) -> List.iter (tcGC gtenv ltenv) gc
                          | x              ->
-                              printfn "%A" x
                               failwith "tcS: this statement is not supported yet %A"
 
    and tcGC gtenv ltenv (e, stms) =  if tcE gtenv ltenv e = BTyp

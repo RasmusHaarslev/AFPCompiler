@@ -105,7 +105,7 @@ Exp:
     Access                            { Access $1 }
   | INT                               { N $1 }
   | BOOL                              { B $1 }
-  | NAME LP ExpList RP                { Apply($1, $3) }
+  | NAME LP ExpL RP                { Apply($1, $3) }
   | LP Exp RP                         { $2 }
   | AMP Access                        { Addr $2 }
   | MINUS Exp                         { Apply("-", [$2])}

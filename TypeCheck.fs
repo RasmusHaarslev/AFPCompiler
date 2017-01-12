@@ -51,6 +51,7 @@ module TypeCheck =
                 if rtList = (List.map (tcE gtenv ltenv) es) then
                     t
                 else
+                    printfn "Call params: %A. DECLARED PARAMS: %A" (List.map (tcE gtenv ltenv) es) rtList
                     failwith "function call params does not match"
             | _ ->
             failwith "error in function call"
@@ -141,7 +142,7 @@ module TypeCheck =
                       | FunDec(t,f,decs,stm) as b ->
                         let typList = (tcGDecs Map.empty decs
                                           |> Map.toList
-                                          |> List.map snd)
+                                          |>  List.map snd |> List.rev)
 
                         let mkLtenv acc x =
                             match x with

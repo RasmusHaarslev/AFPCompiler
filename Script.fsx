@@ -51,6 +51,9 @@ ignore(exec "test_programs/A1.gc")
 // ignore(exec "test_programs/A2.gc")
 // ignore(exec "test_programs/A3.gc")
 
+// Procedure tests
+ignore(exec "test_programs/A4.gc")
+
 // Array tests
 ignore(exec "test_programs/arrayTest.gc")
 

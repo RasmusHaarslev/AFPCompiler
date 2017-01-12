@@ -26,7 +26,7 @@ open CompilerUtil
 open Machine
 open VirtualMachine
 
-// Operator tests
+// Operator and Guarded Commands tests
 ignore(exec "test_programs/testBooleanOperators.gc")
 ignore(exec "test_programs/testModDiv.gc")
 ignore(exec "test_programs/Ex1.gc")

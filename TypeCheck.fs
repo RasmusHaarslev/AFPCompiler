@@ -65,7 +65,7 @@ module TypeCheck =
          | AVar x         -> match Map.tryFind x ltenv with
                              | None   -> match Map.tryFind x gtenv with
                                          | None   -> failwith ("ino declaration for : " + x)
-                                         | Some t -> printfn "x: %A, t: %A" x t; t
+                                         | Some t -> t
                              | Some t -> t
 
          | AIndex(acc, e) -> (*match acc with
@@ -102,10 +102,7 @@ module TypeCheck =
                          | PrintLn e -> ignore(tcE gtenv ltenv e)
                          | Ass(acc,e) -> if tcA gtenv ltenv acc = tcE gtenv ltenv e
                                          then ()
-                                         else
-                                           //printfn "e: %A" (tcE gtenv ltenv e)
-                                           //printfn "acc: %A"  (tcA gtenv ltenv acc)
-                                           failwith "tcS: illtyped assignment"
+                                         else failwith "tcS: illtyped assignment"
 
                          | Block([],stms) -> List.iter (tcS gtenv ltenv) stms
 

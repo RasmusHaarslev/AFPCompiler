@@ -27,14 +27,6 @@ open Machine
 open VirtualMachine
 
 // Operator tests
-
-//ignore(exec "test_programs/testBooleanOperators.gc")
-//ignore(exec "test_programs/testModDiv.gc")
-ignore(printProgram "test_programs/arrParFunc.gc")
-ignore(exec "test_programs/arrParFunc.gc")
-
-// Function tests
-//ignore(exec "test_programs/functionTest.gc")
 ignore(exec "test_programs/testBooleanOperators.gc")
 ignore(exec "test_programs/testModDiv.gc")
 ignore(exec "test_programs/Ex1.gc")
@@ -51,6 +43,7 @@ ignore(exec "test_programs/Ex7.gc")
 ignore(exec "test_programs/fact.gc")
 ignore(exec "test_programs/factRec.gc")
 ignore(exec "test_programs/factCBV.gc")
+// ignore(exec "test_programs/arrParFunc.gc")
 
 // Local Declaration tests
 // ignore(exec "test_programs/A0.gc")

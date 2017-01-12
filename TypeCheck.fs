@@ -64,9 +64,8 @@ module TypeCheck =
          function
          | AVar x         -> match Map.tryFind x ltenv with
                              | None   -> match Map.tryFind x gtenv with
-                                         | None   ->
-                                         failwith ("ino declaration for : " + x)
-                                         | Some t -> t
+                                         | None   -> failwith ("ino declaration for : " + x)
+                                         | Some t -> printfn "x: %A, t: %A" x t; t
                              | Some t -> t
 
          | AIndex(acc, e) -> (*match acc with
@@ -104,8 +103,8 @@ module TypeCheck =
                          | Ass(acc,e) -> if tcA gtenv ltenv acc = tcE gtenv ltenv e
                                          then ()
                                          else
-                                           printfn "%A e " (tcE gtenv ltenv e)
-                                           printfn "%A acc "  (tcA gtenv ltenv acc)
+                                           //printfn "e: %A" (tcE gtenv ltenv e)
+                                           //printfn "acc: %A"  (tcA gtenv ltenv acc)
                                            failwith "tcS: illtyped assignment"
 
                          | Block([],stms) -> List.iter (tcS gtenv ltenv) stms
@@ -135,14 +134,14 @@ module TypeCheck =
 
    and tcGDec gtenv = function
                       // Array declaration.
-                      | VarDec(ATyp (t,Some i),s)               ->
+                      | VarDec(ATyp (t,Some i),s) ->
                         if i < 0 then
                           failwith "Array size must be larger than 0."
-                        Map.add s t gtenv
+                        Map.add s (ATyp (t,None)) gtenv
                       // Array formal parameter.
-                      | VarDec(ATyp (t,None),s)                 -> Map.add s t gtenv
+                      | VarDec(ATyp (t,None),s)   -> Map.add s (ATyp (t,None)) gtenv
                       | VarDec(t,s)               -> Map.add s t gtenv
-                      | FunDec(t,f,decs,stm) as b->
+                      | FunDec(t,f,decs,stm) as b ->
                         let typList = (tcGDecs Map.empty decs
                                           |> Map.toList
                                           |> List.map snd)

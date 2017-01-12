@@ -56,6 +56,7 @@ Dec:
   | FUN NAME LP DecL RP COLON Typ EQ Stm        { FunDec(Some $7,$2,$4,$9) }
   | PROC NAME LP DecL RP EQ Stm           { FunDec(None,$2,$4,$7) }
     // Array declaration    .
+  | NAME COLON HAT Typ LSP RSP            { VarDec(PTyp(ATyp($4, None)), $1)}
   | NAME COLON Typ LSP RSP                { VarDec(ATyp ($3, None), $1) }
   | NAME COLON Typ LSP INT RSP            { VarDec(ATyp ($3,Some $5), $1) }
 

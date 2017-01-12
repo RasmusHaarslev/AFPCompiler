@@ -1,15 +1,15 @@
 begin
-  ip : ^int,
-  i  : int,
-  ii : int;
-  i  := 2;
+  ip : ^int[],
+  a  : int[1],
+  b  : int[1];
+  a[0] := 5;
+  b[0] := 8;
 
-  ip := &i;
+  ip := &a;
 
   print ip^;
 
-  ii := 5;
-  ip := &ii;
+  ip := &b;
 
   print ip^
 end

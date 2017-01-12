@@ -63,8 +63,9 @@ module CodeGeneration =
                                 CE vEnv fEnv e2 @ CE vEnv fEnv e1 @ ins
 
        | Apply(o,es) ->
-              let (l, p, paraNames) = Map.find o fEnv
+              let (l, typ, paraNames) = Map.find o fEnv
               List.collect (fun e -> CE vEnv fEnv e) es @ [CALL(List.length es, l)]
+
 
        | _            -> failwith "CE: not supported yet"
 
@@ -76,11 +77,13 @@ module CodeGeneration =
                                | AIndex(acc, e) ->
                                    // Array indexing takes an "access" and an expression
                                    // Not sure why, but I think it's because of pointers later.
+                                   printfn "hallooo"
                                    match acc with
                                      // We only allow the user to access arrays by referencing the array name
                                      // Hence why we error on ADeref and AIndex.
                                      | AVar x     ->
                                          // We look up and see the array address
+                                         printfn "%A" (Map.find x (fst vEnv))
                                          match Map.find x (fst vEnv) with
                                            | (GloVar addr,ATyp (_,Some size)) ->
                                               //match t with
@@ -92,13 +95,25 @@ module CodeGeneration =
                                               let outOfBounds = newLabel()
                                               let labelEnd = newLabel()
                                               // First we check if index out of bounds.
-                                              expCode @ [CSTI size;LT;IFZERO outOfBounds] @
+                                              printfn "Hallo"
+                                              //expCode @ [CSTI size;LT;IFZERO outOfBounds] @
                                               // If index is within bounds, we find the address by
                                               // expression result + array address.
                                               // After the addition, we GOTO labelEnd.
-                                              expCode @ [CSTI addr; ADD; GOTO labelEnd; Label outOfBounds; STOP; Label labelEnd]
+                                              expCode @ [CSTI addr; ADD]//; GOTO labelEnd; Label outOfBounds; STOP; Label labelEnd]
                                            | (GloVar addr,_) -> failwith "Array formal parameter access not yet supported."
-                                           | (LocVar addr,_) -> failwith "CA: Local variables not supported yet"
+                                           | (LocVar addr,_) ->
+                                             printfn "JESUS CHRIST"
+                                             let expCode = CE vEnv fEnv e
+                                             //we need to check if size > rvalue of e.
+                                             // First we check if index out of bounds.
+                                             printfn "Adress of local array: %A" addr
+                                             // If index is within bounds, we find the address by
+                                             // expression result + array address.
+                                             // After the addition, we GOTO labelEnd.
+                                             let retval = [GETBP] @ expCode @ [ADD; CSTI addr; ADD]
+                                             printfn "%A" retval
+                                             retval
                                      | ADeref _   -> failwith "Pointers not implemented yet."
                                      | AIndex _   -> failwith "Nested arrays detected I think."
                                | ADeref e       -> match e with
@@ -162,6 +177,7 @@ module CodeGeneration =
 
        | Call (o, es) ->
               let (l, p, paraNames) = Map.find o fEnv
+              printfn "Proc Call: %A" o
               List.collect (fun e -> CE vEnv fEnv e) es @ [CALL(List.length es, l);INCSP -1]
        | x                ->
           failwith "CS: this statement is not supported yet"
@@ -223,7 +239,9 @@ module CodeGeneration =
             let (l, _,paras) = Map.find f fEnv
 
             let bindParam (env, fdepth) (typ, x)  : varEnv =
-                (Map.add x (LocVar fdepth, typ) env, fdepth+1)
+              printfn "%A" fdepth
+              printfn "%A" x
+              (Map.add x (LocVar fdepth, typ) env, fdepth+1)
 
             let bindParams paras (env, fdepth) =
                 List.fold bindParam (env, fdepth) paras;

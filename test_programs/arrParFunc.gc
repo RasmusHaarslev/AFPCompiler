@@ -1,0 +1,8 @@
+begin
+  gg: int,
+  k : int[3],
+  procedure g(y:int,x:int[]) =
+  {print y; x[0] := 1; print x[2]};
+  k[2] := 3;
+  g(1, k)
+end

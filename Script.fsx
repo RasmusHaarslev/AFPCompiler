@@ -27,17 +27,19 @@ open Machine
 open VirtualMachine
 
 // Operator tests
-ignore(exec "test_programs/testBooleanOperators.gc")
-ignore(exec "test_programs/testModDiv.gc")
+//ignore(exec "test_programs/testBooleanOperators.gc")
+//ignore(exec "test_programs/testModDiv.gc")
+ignore(printProgram "test_programs/arrParFunc.gc")
+ignore(exec "test_programs/arrParFunc.gc")
 
 // Function tests
-ignore(exec "test_programs/functionTest.gc")
+//ignore(exec "test_programs/functionTest.gc")
 
 // Procedure tests
-ignore(exec "test_programs/A4.gc")
+//ignore(exec "test_programs/A4.gc")
 
 // Pointer tests
-ignore(exec "test_programs/PntrTest0.gc")
+//ignore(exec "test_programs/PntrTest0.gc")
 
 //let ex1Tree = parseFromFile "test_programs/functionTest.gc"
 //ignore(tcP ex1Tree)

@@ -66,6 +66,11 @@ module CompilerUtil =
                         tcP prog
                         go prog
 
+   let printProgram filename =
+                        let prog = parseFromFile filename
+                        tcP prog
+                        let code = CodeGeneration.CP prog
+                        printfn "%A" (code)
 /// execOpt filename parses, type checks, compiles and runs a program in a file
    let execOpt filename =  printfn "\nParse, typecheck, optimized compilation and execution of %s:" filename
                            let prog = parseFromFile filename

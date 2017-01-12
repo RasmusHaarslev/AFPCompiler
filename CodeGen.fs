@@ -48,6 +48,7 @@ module CodeGeneration =
                                           | "*"  -> [MUL]
                                           | "="  -> [EQ]
                                           | "<"  -> [LT]
+                                          | ">"  -> [SWAP;LT]
                                           | ">=" -> [LT;NOT] // Not implemented in parser yet I think. AND NOT TESTED.
                                           | "%"  -> [MOD]
                                           | "/"  -> [DIV]

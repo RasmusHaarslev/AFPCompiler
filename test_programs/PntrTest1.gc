@@ -1,0 +1,15 @@
+begin
+  ip : ^int[],
+  a  : int[1],
+  b  : int[1];
+  a[0] := 5;
+  b[0] := 8;
+
+  ip := &a;
+
+  print ip^;
+
+  ip := &b;
+
+  print ip^
+end

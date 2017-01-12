@@ -114,13 +114,9 @@ module CodeGeneration =
                                              let retval = [GETBP] @ expCode @ [ADD; CSTI addr; ADD]
                                              printfn "%A" retval
                                              retval
-                                     | ADeref _   -> failwith "Pointers not implemented yet."
+                                     | ADeref e   -> CE vEnv fEnv e
                                      | AIndex _   -> failwith "Nested arrays detected I think."
-                               | ADeref e       -> match e with
-                                                   | Addr _ -> failwith "CA: Addr pointer not yet implemented"
-                                                   | Access (AIndex(_)) -> failwith "CA: Array pointers not yet implemented"
-                                                   | Access (ADeref _) -> failwith "CA: Pointer pointer not supported"
-                                                   | e -> CE vEnv fEnv e @ [LDI]
+                               | ADeref e       -> CE vEnv fEnv e
 
 
 

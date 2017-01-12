@@ -105,7 +105,7 @@ module CodeGeneration =
                                                    | Addr _ -> failwith "CA: Addr pointer not yet implemented"
                                                    | Access (AIndex(_)) -> failwith "CA: Array pointers not yet implemented"
                                                    | Access (ADeref _) -> failwith "CA: Pointer pointer not supported"
-                                                   | e -> CE vEnv fEnv e @ [LDI]
+                                                   | e -> CE vEnv fEnv e
 
 
 

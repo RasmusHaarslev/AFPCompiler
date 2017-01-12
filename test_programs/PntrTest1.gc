@@ -1,0 +1,15 @@
+begin
+  ip : ^int,
+  i  : int,
+  ii : int;
+  i  := 2;
+
+  ip := &i;
+
+  print ip^;
+
+  ii := 5;
+  ip := &ii;
+
+  print ip^
+end

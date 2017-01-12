@@ -42,17 +42,15 @@ module CodeGeneration =
                                 CE vEnv fEnv b1 @ [IFZERO labfalse] @ CE vEnv fEnv b2
                                 @ [GOTO labend; Label labfalse; CSTI 0; Label labend]
 
-       | Apply(o,[e1;e2]) when List.exists (fun x -> o=x) ["+"; "*"; "="; "-"; "<";"<="; ">"; ">=";"%";"/"]
+       | Apply(o,[e1;e2]) when List.exists (fun x -> o=x) ["+"; "*"; "="; "-"; "<"; ">=";"%";"/"]
                              -> let ins = match o with
                                           | "+"  -> [ADD]
                                           | "*"  -> [MUL]
                                           | "="  -> [EQ]
                                           | "<"  -> [LT]
-                                          | ">"  -> [SWAP;LT]
                                           | ">=" -> [LT;NOT] // Not implemented in parser yet I think. AND NOT TESTED.
                                           | "%"  -> [MOD]
                                           | "/"  -> [DIV]
-                                          | "<=" -> [SUB; CSTI 1; LT] // Skal bruge input for at overbevise mig selv om korrektheden for dette. Er bange for edgecases.
                                           | "-"  -> [SUB]
                                           | _    -> failwith "CE: this case is not possible"
                                 CE vEnv fEnv e1 @ CE vEnv fEnv e2 @ ins
@@ -60,6 +58,7 @@ module CodeGeneration =
        | Apply(o,[e1;e2]) when List.exists (fun x -> o=x) [">";"<="]
                              -> let ins = match o with
                                           | ">"  -> [LT]
+                                          | "<=" -> [LT; NOT]
                                           | _    -> failwith "CE: this case is not possible"
                                 CE vEnv fEnv e2 @ CE vEnv fEnv e1 @ ins
 
@@ -164,7 +163,7 @@ module CodeGeneration =
 
        | Do (GC gc)       ->
             let labstart = newLabel()
-            in [Label labstart] @ List.collect (CSgcAlt vEnv fEnv labstart) gc
+            in [Label labstart] @ List.collect (CSgcDo vEnv fEnv labstart) gc
 
        | Call (o, es) ->
               let (l, p, paraNames) = Map.find o fEnv

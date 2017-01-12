@@ -1,0 +1,9 @@
+begin
+  i : int;
+  i := 4;
+  {
+    k : int;
+    print i;
+    print i
+  }
+end

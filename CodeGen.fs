@@ -78,39 +78,11 @@ module CodeGeneration =
                                | AIndex(acc, e) ->
                                    // Array indexing takes an "access" and an expression
                                    // Not sure why, but I think it's because of pointers later.
-                                   match acc with
-                                     // We only allow the user to access arrays by referencing the array name
-                                     // Hence why we error on ADeref and AIndex.
-                                     | AVar x     ->
-                                         // We look up and see the array address
-                                         match Map.find x (fst vEnv) with
-                                           | (GloVar addr,ATyp (_,Some size)) ->
-                                              //match t with
-                                              //  | _   -> printfn "%A" t
-                                              // To find the right position, we
-                                              // take the array stack position and add the index.
-                                              let expCode = CE vEnv fEnv e
-                                              //we need to check if size > rvalue of e.
-                                              let outOfBounds = newLabel()
-                                              let labelEnd = newLabel()
-                                              // First we check if index out of bounds.
-                                              //expCode @ [CSTI size;LT;IFZERO outOfBounds] @
-                                              // If index is within bounds, we find the address by
-                                              // expression result + array address.
-                                              // After the addition, we GOTO labelEnd.
-                                              expCode @ [CSTI addr; ADD]//; GOTO labelEnd; Label outOfBounds; STOP; Label labelEnd]
-                                           | (GloVar addr,_) -> failwith "Array formal parameter access not yet supported."
-                                           | (LocVar addr,_) ->
-                                             let expCode = CE vEnv fEnv e
-                                             //we need to check if size > rvalue of e.
-                                             // First we check if index out of bounds.
-                                             // If index is within bounds, we find the address by
-                                             // expression result + array address.
-                                             // After the addition, we GOTO labelEnd.
-                                             let retval = [GETBP] @ expCode @ [ADD; CSTI addr; ADD]
-                                             retval
-                                     | ADeref e   -> CE vEnv fEnv e
-                                     | AIndex _   -> failwith "Nested arrays detected I think."
+                                   let accCode = CA vEnv fEnv acc
+                                   let expCode = CE vEnv fEnv e
+                                   let retval = accCode @ [LDI] @ expCode @ [ADD]
+                                   printfn "%A" retval
+                                   retval
                                | ADeref e       -> CE vEnv fEnv e
 
 
@@ -123,8 +95,10 @@ module CodeGeneration =
       raise (Failure "allocate: array of arrays not permitted")
     | ATyp (t, Some i) ->
       //  We initialize the array values to 0.
-      let newEnv = (Map.add x (kind fdepth, typ) env, fdepth+i)
-      let code = [INCSP i]
+      let newEnv = (Map.add x (kind (fdepth+i), typ) env, fdepth+i+1)
+      printfn "%A" (fdepth)
+      let code = [INCSP (i);GETSP; CSTI (i-1);SUB]
+      printfn "%A" code
       (newEnv, code)
     | _ ->
       let newEnv = (Map.add x (kind fdepth, typ) env, fdepth+1)
@@ -164,7 +138,7 @@ module CodeGeneration =
 
        | Do (GC gc)       ->
             let labstart = newLabel()
-            in [Label labstart] @ List.collect (CSgcAlt vEnv fEnv labstart) gc
+            in [Label labstart] @ List.collect (CSgcDo vEnv fEnv labstart) gc
 
        | Call (o, es) ->
               let (l, p, paraNames) = Map.find o fEnv

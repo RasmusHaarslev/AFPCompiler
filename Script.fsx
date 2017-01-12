@@ -46,10 +46,10 @@ ignore(exec "test_programs/factCBV.gc")
 // ignore(exec "test_programs/arrParFunc.gc")
 
 // Local Declaration tests
-// ignore(exec "test_programs/A0.gc")
+ignore(exec "test_programs/A0.gc")
 ignore(exec "test_programs/A1.gc")
-// ignore(exec "test_programs/A2.gc")
-// ignore(exec "test_programs/A3.gc")
+ignore(exec "test_programs/A2.gc")
+ignore(exec "test_programs/A3.gc")
 
 // Array tests
 ignore(exec "test_programs/arrayTest.gc")
@@ -60,5 +60,5 @@ ignore(exec "test_programs/PntrTest1.gc")
 ignore(exec "test_programs/PntrTest2.gc")
 ignore(exec "test_programs/par1.gc")
 // ignore(exec "test_programs/factImpPTyp.gc")
-// ignore(exec "test_programs/QuickSortV2.gc")
+//ignore(exec "test_programs/QuickSortV1.gc")
 // ignore(exec "test_programs/par2.gc")

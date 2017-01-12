@@ -52,7 +52,7 @@ module TypeCheck =
                     t
                 else
                     failwith "function call params does not match"
-            | _ -> 
+            | _ ->
             failwith "error in function call"
 
    and tcNaryProcedure gtenv ltenv f es = failwith "type check: procedures not supported yet"
@@ -64,7 +64,7 @@ module TypeCheck =
          function
          | AVar x         -> match Map.tryFind x ltenv with
                              | None   -> match Map.tryFind x gtenv with
-                                         | None   -> 
+                                         | None   ->
                                          failwith ("ino declaration for : " + x)
                                          | Some t -> t
                              | Some t -> t
@@ -96,10 +96,6 @@ module TypeCheck =
                              | PTyp BTyp -> BTyp
                              | PTyp (ATyp(t, _)) -> t
                              | _-> failwith "Deref: Illtyped dereference."
-         | x              ->
-                          printfn "%A SHIIIIT" x
-                          failwith "lol"
-
 
 /// tcS gtenv ltenv retOpt s checks the well-typeness of a statement s on the basis of type environments gtenv and ltenv
 /// for global and local variables and the possible type of return expressions
@@ -157,8 +153,8 @@ module TypeCheck =
                                 | FunDec (t, f, decs, stm) -> Map.add f (FTyp (typList, t)) acc
 
                         let stmDecs = match stm with
-                            | Block(x,_) -> x
-                            | _ -> []
+                                      | Block(x,_) -> x
+                                      | _ -> []
 
                         let ltenv = List.fold mkLtenv Map.empty (b::decs@stmDecs)
 
@@ -196,11 +192,6 @@ module TypeCheck =
 
                         else
                             failwith "illtyped function declaration"
-
-
-                      | _ ->
-                        failwith "type check: Something went bad in declaration"
-
 
    and tcGDecs gtenv = function
                        | dec::decs -> tcGDecs (tcGDec gtenv dec) decs

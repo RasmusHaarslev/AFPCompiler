@@ -51,6 +51,9 @@ ignore(exec "test_programs/A1.gc")
 ignore(exec "test_programs/A2.gc")
 ignore(exec "test_programs/A3.gc")
 
+// Procedure tests
+ignore(exec "test_programs/A4.gc")
+
 // Array tests
 ignore(exec "test_programs/arrayTest.gc")
 
@@ -59,6 +62,7 @@ ignore(exec "test_programs/PntrTest0.gc")
 ignore(exec "test_programs/PntrTest1.gc")
 ignore(exec "test_programs/PntrTest2.gc")
 ignore(exec "test_programs/par1.gc")
-// ignore(exec "test_programs/factImpPTyp.gc")
-//ignore(exec "test_programs/QuickSortV1.gc")
+ignore(exec "test_programs/factImpPTyp.gc")
+// ignore(exec "test_programs/QuickSortV1.gc")
+// ignore(exec "test_programs/QuickSortV2.gc")
 // ignore(exec "test_programs/par2.gc")
